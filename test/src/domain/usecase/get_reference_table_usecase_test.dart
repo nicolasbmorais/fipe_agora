@@ -20,13 +20,13 @@ void main() {
   test('Should return a list of reference tables', () async {
     // Arrange
     when(repository.getReferenceTable())
-        .thenAnswer((_) async => listReferenceTable());
+        .thenAnswer((_) async => listReferenceTableEntity());
 
     // Act
     final result = await usecase(NoParams());
 
     // Assert
-    expect(result, listReferenceTable());
+    expect(result, listReferenceTableEntity());
   });
 
   test('Should return a empty list of reference tables', () async {

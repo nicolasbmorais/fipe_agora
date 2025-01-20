@@ -6,7 +6,7 @@ abstract class Failure extends Equatable {
   List<Object?> get props => [];
 }
 
-class NoConnection extends Failure {
+class ApiFailure extends Failure {
   @override
-  String get msg => 'Desculpe, você não está conectado a internet';
+  String get msg => 'Desculpe, não foi possível acessar o servidor';
 }
