@@ -8,6 +8,8 @@ import 'dart:async' as _i4;
 import 'package:dio/dio.dart' as _i2;
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_impl.dart'
     as _i3;
+import 'package:fipe_agora/src/data/models/brands_model.dart' as _i6;
+import 'package:fipe_agora/src/data/models/car_models_model.dart' as _i7;
 import 'package:fipe_agora/src/data/models/reference_table_model.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -65,4 +67,47 @@ class MockFipeDatasourceImpl extends _i1.Mock
             _i4.Future<List<_i5.ReferenceTableModel>>.value(
                 <_i5.ReferenceTableModel>[]),
       ) as _i4.Future<List<_i5.ReferenceTableModel>>);
+
+  @override
+  _i4.Future<List<_i6.BrandModel>> getBrands({
+    required String? tableCode,
+    required String? vehicleCode,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getBrands,
+          [],
+          {
+            #tableCode: tableCode,
+            #vehicleCode: vehicleCode,
+          },
+        ),
+        returnValue: _i4.Future<List<_i6.BrandModel>>.value(<_i6.BrandModel>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i6.BrandModel>>.value(<_i6.BrandModel>[]),
+      ) as _i4.Future<List<_i6.BrandModel>>);
+
+  @override
+  _i4.Future<List<_i7.CarModelsModel>> getCarModels({
+    required String? tableCode,
+    required String? vehicleCode,
+    required String? brandCode,
+    required String? modelCode,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getCarModels,
+          [],
+          {
+            #tableCode: tableCode,
+            #vehicleCode: vehicleCode,
+            #brandCode: brandCode,
+            #modelCode: modelCode,
+          },
+        ),
+        returnValue:
+            _i4.Future<List<_i7.CarModelsModel>>.value(<_i7.CarModelsModel>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i7.CarModelsModel>>.value(<_i7.CarModelsModel>[]),
+      ) as _i4.Future<List<_i7.CarModelsModel>>);
 }

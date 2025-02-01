@@ -1,4 +1,4 @@
-import 'package:fipe_agora/src/domain/entities/reference_table.dart';
+import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart';
 
 class ReferenceTableModel extends ReferenceTableEntity {
   const ReferenceTableModel({

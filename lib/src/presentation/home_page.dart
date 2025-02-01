@@ -1,4 +1,6 @@
+import 'package:fipe_agora/src/presentation/controller/fipe_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -20,10 +22,12 @@ class HomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                OutlinedButton(
-                  onPressed: () {},
-                  child: const Text('Carros -1'),
-                ),
+                Consumer<FipeController>(builder: (context, controller, _) {
+                  return OutlinedButton(
+                    onPressed: () => controller.logButton(),
+                    child: const Text('Carros -1'),
+                  );
+                }),
                 OutlinedButton(
                   onPressed: () {},
                   child: const Text('Motos - 2'),

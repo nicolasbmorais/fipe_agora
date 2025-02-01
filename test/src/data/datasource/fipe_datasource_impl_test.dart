@@ -22,31 +22,62 @@ void main() {
     dio = MockDio();
     datasourceImpl = FipeDatasourceImpl(dio: dio);
   });
-  test('Should return reference table list', () async {
-    when(dio.get(any)).thenAnswer((_) async {
-      return Response(
-        requestOptions: requestOptions,
-        statusCode: 200,
-        data: List.from(jsonDecode(fixture('reference_table.json'))),
-      );
+  group('Reference Table Test', () {
+    test('Should return reference table list', () async {
+      when(dio.get(any)).thenAnswer((_) async {
+        return Response(
+          requestOptions: requestOptions,
+          statusCode: 200,
+          data: List.from(jsonDecode(fixture('reference_table.json'))),
+        );
+      });
+
+      final result = await datasourceImpl.getReferenceTable();
+
+      expect(result, tListReferenceTableModel());
     });
 
-    final result = await datasourceImpl.getReferenceTable();
+    test('Should throws error on get reference table list', () async {
+      when(dio.get(any)).thenAnswer((_) async {
+        return Response(
+          requestOptions: requestOptions,
+          statusCode: 400,
+        );
+      });
 
-    expect(result, listReferenceTableModel());
+      expect(
+        () => datasourceImpl.getReferenceTable(),
+        throwsA(isA<ApiFailure>()),
+      );
+    });
   });
 
-  test('Should throws error on get reference table list', () async {
-    when(dio.get(any)).thenAnswer((_) async {
-      return Response(
-        requestOptions: requestOptions,
-        statusCode: 500,
-      );
+  group('Brand List Test', () {
+    test('Should return a brand list', () async {
+      when(dio.get(any)).thenAnswer((_) async => Response(
+            requestOptions: requestOptions,
+            statusCode: 200,
+            data: List.from(jsonDecode(fixture('brands.json'))),
+          ));
+
+      final result =
+          await datasourceImpl.getBrands(tableCode: '290', vehicleCode: '1');
+
+      expect(result, tBrandModelList());
     });
 
-    expect(
-      () => datasourceImpl.getReferenceTable(),
-      throwsA(isA<ApiFailure>()),
-    );
+    test('Should throws error on get reference table list', () async {
+      when(dio.get(any)).thenAnswer((_) async {
+        return Response(
+          requestOptions: requestOptions,
+          statusCode: 400,
+        );
+      });
+
+      expect(
+        () => datasourceImpl.getBrands(tableCode: '290', vehicleCode: '1'),
+        throwsA(isA<BrandsFailure>()),
+      );
+    });
   });
 }

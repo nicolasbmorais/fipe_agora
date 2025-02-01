@@ -15,18 +15,18 @@ void main() {
 
   setUp(() {
     repository = MockFipeRepositoryInterface();
-    usecase = GetReferenceTableUsecase(repositoryInterface: repository);
+    usecase = GetReferenceTableUsecase(repository: repository);
   });
   test('Should return a list of reference tables', () async {
     // Arrange
     when(repository.getReferenceTable())
-        .thenAnswer((_) async => listReferenceTableEntity());
+        .thenAnswer((_) async => tListReferenceTableEntity());
 
     // Act
     final result = await usecase(NoParams());
 
     // Assert
-    expect(result, listReferenceTableEntity());
+    expect(result, tListReferenceTableEntity());
   });
 
   test('Should return a empty list of reference tables', () async {

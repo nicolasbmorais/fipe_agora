@@ -5,7 +5,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
-import 'package:fipe_agora/src/domain/entities/reference_table.dart' as _i4;
+import 'package:fipe_agora/src/domain/entities/brand_entity.dart' as _i5;
+import 'package:fipe_agora/src/domain/entities/car_models_entity.dart' as _i6;
+import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart'
+    as _i4;
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -41,4 +44,48 @@ class MockFipeRepositoryInterface extends _i1.Mock
             _i3.Future<List<_i4.ReferenceTableEntity>>.value(
                 <_i4.ReferenceTableEntity>[]),
       ) as _i3.Future<List<_i4.ReferenceTableEntity>>);
+
+  @override
+  _i3.Future<List<_i5.BrandEntity>> getBrands({
+    required String? tableCode,
+    required String? vehicleCode,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getBrands,
+          [],
+          {
+            #tableCode: tableCode,
+            #vehicleCode: vehicleCode,
+          },
+        ),
+        returnValue:
+            _i3.Future<List<_i5.BrandEntity>>.value(<_i5.BrandEntity>[]),
+        returnValueForMissingStub:
+            _i3.Future<List<_i5.BrandEntity>>.value(<_i5.BrandEntity>[]),
+      ) as _i3.Future<List<_i5.BrandEntity>>);
+
+  @override
+  _i3.Future<List<_i6.CarModelsEntity>> getCarModels({
+    required String? tableCode,
+    required String? vehicleCode,
+    required String? brandCode,
+    required String? modelCode,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getCarModels,
+          [],
+          {
+            #tableCode: tableCode,
+            #vehicleCode: vehicleCode,
+            #brandCode: brandCode,
+            #modelCode: modelCode,
+          },
+        ),
+        returnValue: _i3.Future<List<_i6.CarModelsEntity>>.value(
+            <_i6.CarModelsEntity>[]),
+        returnValueForMissingStub: _i3.Future<List<_i6.CarModelsEntity>>.value(
+            <_i6.CarModelsEntity>[]),
+      ) as _i3.Future<List<_i6.CarModelsEntity>>);
 }

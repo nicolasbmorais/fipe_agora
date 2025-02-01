@@ -1,5 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-class FipeController extends ChangeNotifier {
-  //
+import 'package:fipe_agora/src/common/base_controller.dart';
+
+class FipeController extends BaseController {
+  void logButton() {
+    log('Cliquei');
+    notifyListeners();
+  }
 }
