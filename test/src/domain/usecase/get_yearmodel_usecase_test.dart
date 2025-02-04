@@ -1,5 +1,5 @@
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart';
-import 'package:fipe_agora/src/domain/usecase/get_car_models_usecase.dart';
+import 'package:fipe_agora/src/domain/usecase/get_yearmodel_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -9,22 +9,22 @@ import 'get_reference_table_usecase_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<FipeRepositoryInterface>()])
 void main() {
-  late FipeRepositoryInterface fipeRepositoryInterface;
-  late GetCarModelsUsecase getCarModelsUsecase;
+  late MockFipeRepositoryInterface repository;
+  late GetYearModelUsecase getYearModelUsecase;
 
   setUp(() {
-    fipeRepositoryInterface = MockFipeRepositoryInterface();
-    getCarModelsUsecase =
-        GetCarModelsUsecase(repository: fipeRepositoryInterface);
+    repository = MockFipeRepositoryInterface();
+    getYearModelUsecase = GetYearModelUsecase(repository: repository);
   });
-  test('Get Car Models Usecase', () async {
-    when(fipeRepositoryInterface.getCarModels(
+  test('Should return a list of year and model', () async {
+    when(repository.getYearModel(
       tableCode: 'tableCode',
       vehicleCode: 'vehicleCode',
       brandCode: 'brandCode',
-    )).thenAnswer((_) async => tCarModelEntityList());
+      modelCode: 'modelCode',
+    )).thenAnswer((_) async => tYearModelEntityList());
 
-    final response = await getCarModelsUsecase(const GetCarModelsParams(
+    final response = await getYearModelUsecase(const GetYearModelParams(
       tableCode: 'tableCode',
       vehicleCode: 'vehicleCode',
       brandCode: 'brandCode',

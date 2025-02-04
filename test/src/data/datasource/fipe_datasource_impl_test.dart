@@ -80,4 +80,124 @@ void main() {
       );
     });
   });
+
+  group('Car model List Test', () {
+    test('Should return Car model list', () async {
+      when(dio.get(any)).thenAnswer((_) async {
+        return Response(
+          requestOptions: requestOptions,
+          statusCode: 200,
+          data: List.from(jsonDecode(fixture('car_models.json'))),
+        );
+      });
+
+      final result = await datasourceImpl.getCarModels(
+        tableCode: 'tableCode',
+        vehicleCode: 'vehicleCode',
+        brandCode: 'brandCode',
+      );
+
+      expect(result, tCarModelList());
+    });
+
+    test('Should throws error on get reference table list', () async {
+      when(dio.get(any)).thenAnswer((_) async {
+        return Response(
+          requestOptions: requestOptions,
+          statusCode: 400,
+        );
+      });
+
+      expect(
+        () => datasourceImpl.getCarModels(
+          tableCode: 'tableCode',
+          vehicleCode: 'vehicleCode',
+          brandCode: 'brandCode',
+        ),
+        throwsA(isA<CarModelFailure>()),
+      );
+    });
+  });
+  group('Year model List Test', () {
+    test('Should return year model list', () async {
+      when(dio.get(any)).thenAnswer((_) async {
+        return Response(
+          requestOptions: requestOptions,
+          statusCode: 200,
+          data: List.from(jsonDecode(fixture('year_model.json'))),
+        );
+      });
+
+      final result = await datasourceImpl.getYearModel(
+        tableCode: 'tableCode',
+        vehicleCode: 'vehicleCode',
+        brandCode: 'brandCode',
+        modelCode: 'modelCode',
+      );
+
+      expect(result, tYearModelList());
+    });
+
+    test('Should throws error on get reference table list', () async {
+      when(dio.get(any)).thenAnswer((_) async {
+        return Response(
+          requestOptions: requestOptions,
+          statusCode: 400,
+        );
+      });
+
+      expect(
+        () => datasourceImpl.getYearModel(
+          tableCode: 'tableCode',
+          vehicleCode: 'vehicleCode',
+          brandCode: 'brandCode',
+          modelCode: 'modelCode',
+        ),
+        throwsA(isA<YearModelFailure>()),
+      );
+    });
+  });
+
+  group('Model by Year List Test', () {
+    test('Should return Model by Year list', () async {
+      when(dio.get(any)).thenAnswer((_) async {
+        return Response(
+          requestOptions: requestOptions,
+          statusCode: 200,
+          data: List.from(jsonDecode(fixture('model_by_year.json'))),
+        );
+      });
+
+      final result = await datasourceImpl.getModelByYear(
+        tableCode: 'tableCode',
+        vehicleCode: 'vehicleCode',
+        brandCode: 'brandCode',
+        year: 'year',
+        fuelCode: 'fuelCode',
+        yearModel: 'yearModel',
+      );
+
+      expect(result, tModelByYearModelList());
+    });
+
+    test('Should throws error on get Model by Year list', () async {
+      when(dio.get(any)).thenAnswer((_) async {
+        return Response(
+          requestOptions: requestOptions,
+          statusCode: 400,
+        );
+      });
+
+      expect(
+          () => datasourceImpl.getModelByYear(
+                tableCode: 'tableCode',
+                vehicleCode: 'vehicleCode',
+                brandCode: 'brandCode',
+                year: 'year',
+                fuelCode: 'fuelCode',
+                yearModel: 'yearModel',
+              ),
+          throwsA(isA<ModelByYearFailure>()));
+    });
+  });
 }

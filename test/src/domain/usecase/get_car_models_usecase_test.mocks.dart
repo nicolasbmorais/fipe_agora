@@ -3,14 +3,18 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:fipe_agora/src/domain/entities/brand_entity.dart' as _i5;
-import 'package:fipe_agora/src/domain/entities/car_models_entity.dart' as _i6;
+import 'package:fipe_agora/src/domain/entities/brand_entity.dart' as _i6;
+import 'package:fipe_agora/src/domain/entities/car_models_entity.dart' as _i7;
+import 'package:fipe_agora/src/domain/entities/fipe_model.dart' as _i2;
+import 'package:fipe_agora/src/domain/entities/model_by_year_entity.dart'
+    as _i9;
 import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart'
-    as _i4;
+    as _i5;
+import 'package:fipe_agora/src/domain/entities/year_model_entity.dart' as _i8;
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart'
-    as _i2;
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -26,27 +30,38 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeFipeModelEntity_0 extends _i1.SmartFake
+    implements _i2.FipeModelEntity {
+  _FakeFipeModelEntity_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [FipeRepositoryInterface].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockFipeRepositoryInterface extends _i1.Mock
-    implements _i2.FipeRepositoryInterface {
+    implements _i3.FipeRepositoryInterface {
   @override
-  _i3.Future<List<_i4.ReferenceTableEntity>> getReferenceTable() =>
+  _i4.Future<List<_i5.ReferenceTableEntity>> getReferenceTable() =>
       (super.noSuchMethod(
         Invocation.method(
           #getReferenceTable,
           [],
         ),
-        returnValue: _i3.Future<List<_i4.ReferenceTableEntity>>.value(
-            <_i4.ReferenceTableEntity>[]),
+        returnValue: _i4.Future<List<_i5.ReferenceTableEntity>>.value(
+            <_i5.ReferenceTableEntity>[]),
         returnValueForMissingStub:
-            _i3.Future<List<_i4.ReferenceTableEntity>>.value(
-                <_i4.ReferenceTableEntity>[]),
-      ) as _i3.Future<List<_i4.ReferenceTableEntity>>);
+            _i4.Future<List<_i5.ReferenceTableEntity>>.value(
+                <_i5.ReferenceTableEntity>[]),
+      ) as _i4.Future<List<_i5.ReferenceTableEntity>>);
 
   @override
-  _i3.Future<List<_i5.BrandEntity>> getBrands({
+  _i4.Future<List<_i6.BrandEntity>> getBrands({
     required String? tableCode,
     required String? vehicleCode,
   }) =>
@@ -60,17 +75,16 @@ class MockFipeRepositoryInterface extends _i1.Mock
           },
         ),
         returnValue:
-            _i3.Future<List<_i5.BrandEntity>>.value(<_i5.BrandEntity>[]),
+            _i4.Future<List<_i6.BrandEntity>>.value(<_i6.BrandEntity>[]),
         returnValueForMissingStub:
-            _i3.Future<List<_i5.BrandEntity>>.value(<_i5.BrandEntity>[]),
-      ) as _i3.Future<List<_i5.BrandEntity>>);
+            _i4.Future<List<_i6.BrandEntity>>.value(<_i6.BrandEntity>[]),
+      ) as _i4.Future<List<_i6.BrandEntity>>);
 
   @override
-  _i3.Future<List<_i6.CarModelsEntity>> getCarModels({
+  _i4.Future<List<_i7.CarModelsEntity>> getCarModels({
     required String? tableCode,
     required String? vehicleCode,
     required String? brandCode,
-    required String? modelCode,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -80,12 +94,128 @@ class MockFipeRepositoryInterface extends _i1.Mock
             #tableCode: tableCode,
             #vehicleCode: vehicleCode,
             #brandCode: brandCode,
+          },
+        ),
+        returnValue: _i4.Future<List<_i7.CarModelsEntity>>.value(
+            <_i7.CarModelsEntity>[]),
+        returnValueForMissingStub: _i4.Future<List<_i7.CarModelsEntity>>.value(
+            <_i7.CarModelsEntity>[]),
+      ) as _i4.Future<List<_i7.CarModelsEntity>>);
+
+  @override
+  _i4.Future<List<_i8.YearModelEntity>> getYearModel({
+    required String? tableCode,
+    required String? vehicleCode,
+    required String? brandCode,
+    required String? modelCode,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getYearModel,
+          [],
+          {
+            #tableCode: tableCode,
+            #vehicleCode: vehicleCode,
+            #brandCode: brandCode,
             #modelCode: modelCode,
           },
         ),
-        returnValue: _i3.Future<List<_i6.CarModelsEntity>>.value(
-            <_i6.CarModelsEntity>[]),
-        returnValueForMissingStub: _i3.Future<List<_i6.CarModelsEntity>>.value(
-            <_i6.CarModelsEntity>[]),
-      ) as _i3.Future<List<_i6.CarModelsEntity>>);
+        returnValue: _i4.Future<List<_i8.YearModelEntity>>.value(
+            <_i8.YearModelEntity>[]),
+        returnValueForMissingStub: _i4.Future<List<_i8.YearModelEntity>>.value(
+            <_i8.YearModelEntity>[]),
+      ) as _i4.Future<List<_i8.YearModelEntity>>);
+
+  @override
+  _i4.Future<List<_i9.ModelByYearEntity>> getModelByYear({
+    required String? tableCode,
+    required String? vehicleCode,
+    required String? brandCode,
+    required String? year,
+    required String? fuelCode,
+    required String? yearModel,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getModelByYear,
+          [],
+          {
+            #tableCode: tableCode,
+            #vehicleCode: vehicleCode,
+            #brandCode: brandCode,
+            #year: year,
+            #fuelCode: fuelCode,
+            #yearModel: yearModel,
+          },
+        ),
+        returnValue: _i4.Future<List<_i9.ModelByYearEntity>>.value(
+            <_i9.ModelByYearEntity>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i9.ModelByYearEntity>>.value(
+                <_i9.ModelByYearEntity>[]),
+      ) as _i4.Future<List<_i9.ModelByYearEntity>>);
+
+  @override
+  _i4.Future<_i2.FipeModelEntity> getFipeTable({
+    required String? tableCode,
+    required String? vehicleCode,
+    required String? brandCode,
+    required String? year,
+    required String? fuelCode,
+    required String? yearModel,
+    required String? modelCode,
+    required String? consultType,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getFipeTable,
+          [],
+          {
+            #tableCode: tableCode,
+            #vehicleCode: vehicleCode,
+            #brandCode: brandCode,
+            #year: year,
+            #fuelCode: fuelCode,
+            #yearModel: yearModel,
+            #modelCode: modelCode,
+            #consultType: consultType,
+          },
+        ),
+        returnValue:
+            _i4.Future<_i2.FipeModelEntity>.value(_FakeFipeModelEntity_0(
+          this,
+          Invocation.method(
+            #getFipeTable,
+            [],
+            {
+              #tableCode: tableCode,
+              #vehicleCode: vehicleCode,
+              #brandCode: brandCode,
+              #year: year,
+              #fuelCode: fuelCode,
+              #yearModel: yearModel,
+              #modelCode: modelCode,
+              #consultType: consultType,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.FipeModelEntity>.value(_FakeFipeModelEntity_0(
+          this,
+          Invocation.method(
+            #getFipeTable,
+            [],
+            {
+              #tableCode: tableCode,
+              #vehicleCode: vehicleCode,
+              #brandCode: brandCode,
+              #year: year,
+              #fuelCode: fuelCode,
+              #yearModel: yearModel,
+              #modelCode: modelCode,
+              #consultType: consultType,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.FipeModelEntity>);
 }

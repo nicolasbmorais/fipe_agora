@@ -2,7 +2,10 @@ import 'package:fipe_agora/src/core/failure.dart';
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_interface.dart';
 import 'package:fipe_agora/src/domain/entities/brand_entity.dart';
 import 'package:fipe_agora/src/domain/entities/car_models_entity.dart';
+import 'package:fipe_agora/src/domain/entities/fipe_model.dart';
+import 'package:fipe_agora/src/domain/entities/model_by_year_entity.dart';
 import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart';
+import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart';
 
 class FipeRepositoryImpl implements FipeRepositoryInterface {
@@ -38,14 +41,81 @@ class FipeRepositoryImpl implements FipeRepositoryInterface {
     required String tableCode,
     required String vehicleCode,
     required String brandCode,
-    required String modelCode,
   }) async {
     try {
       return await fipeDataSource.getCarModels(
         tableCode: tableCode,
         vehicleCode: vehicleCode,
         brandCode: brandCode,
+      );
+    } on Failure catch (_) {
+      throw ApiFailure();
+    }
+  }
+
+  @override
+  Future<List<YearModelEntity>> getYearModel({
+    required String tableCode,
+    required String vehicleCode,
+    required String brandCode,
+    required String modelCode,
+  }) async {
+    try {
+      return await fipeDataSource.getYearModel(
+        tableCode: tableCode,
+        vehicleCode: vehicleCode,
+        brandCode: brandCode,
         modelCode: modelCode,
+      );
+    } on Failure catch (_) {
+      throw ApiFailure();
+    }
+  }
+
+  @override
+  Future<List<ModelByYearEntity>> getModelByYear({
+    required String tableCode,
+    required String vehicleCode,
+    required String brandCode,
+    required String year,
+    required String fuelCode,
+    required String yearModel,
+  }) async {
+    try {
+      return await fipeDataSource.getModelByYear(
+        tableCode: tableCode,
+        vehicleCode: vehicleCode,
+        brandCode: brandCode,
+        year: year,
+        fuelCode: fuelCode,
+        yearModel: yearModel,
+      );
+    } on Failure catch (_) {
+      throw ApiFailure();
+    }
+  }
+
+  @override
+  Future<FipeModelEntity> getFipeTable({
+    required String tableCode,
+    required String vehicleCode,
+    required String brandCode,
+    required String year,
+    required String fuelCode,
+    required String yearModel,
+    required String modelCode,
+    required String consultType,
+  }) async {
+    try {
+      return await fipeDataSource.getFipeTable(
+        tableCode: tableCode,
+        modelCode: modelCode,
+        consultType: consultType,
+        vehicleCode: vehicleCode,
+        brandCode: brandCode,
+        year: year,
+        fuelCode: fuelCode,
+        yearModel: yearModel,
       );
     } on Failure catch (_) {
       throw ApiFailure();
