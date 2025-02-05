@@ -21,10 +21,10 @@ class BrandsFailure extends Failure {
       error ?? 'Desculpe, não foi possível listar as marcas. Tente novamente';
 }
 
-class CarModelFailure extends Failure {
+class VehicleModelFailure extends Failure {
   final String? error;
 
-  CarModelFailure({this.error});
+  VehicleModelFailure({this.error});
 
   @override
   String get msg =>

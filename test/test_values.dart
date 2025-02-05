@@ -1,12 +1,12 @@
 import 'package:fipe_agora/src/data/models/brands_model.dart';
-import 'package:fipe_agora/src/data/models/car_model.dart';
 import 'package:fipe_agora/src/data/models/model_by_year_model.dart';
 import 'package:fipe_agora/src/data/models/reference_table_model.dart';
+import 'package:fipe_agora/src/data/models/vehicle_model.dart';
 import 'package:fipe_agora/src/data/models/year_model.dart';
 import 'package:fipe_agora/src/domain/entities/brand_entity.dart';
-import 'package:fipe_agora/src/domain/entities/car_models_entity.dart';
 import 'package:fipe_agora/src/domain/entities/model_by_year_entity.dart';
 import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart';
+import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
 import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
 
 List<ReferenceTableEntity> tListReferenceTableEntity() => [
@@ -29,15 +29,23 @@ List<BrandModel> tBrandModelList() => [
       const BrandModel(label: 'Agrale', value: '2'),
     ];
 
-List<CarModelsEntity> tCarModelEntityList() => [
-      const CarModelsEntity(label: 'AM-825 Luxo 4.0 Diesel', value: 24),
-      const CarModelsEntity(label: 'AM-825 Super Luxo 4.0 Diesel', value: 25),
-    ];
+VehicleModelsEntity tVehicleModelEntity() => const VehicleModelsEntity(
+      model: [
+        ModelEntity(label: 'AM-825 Luxo 4.0 Diesel', value: 24),
+      ],
+      year: [
+        YearEntity(label: '1999 Gasolina', value: '1999-1'),
+      ],
+    );
 
-List<CarModel> tCarModelList() => [
-      const CarModel(label: 'AM-825 Luxo 4.0 Diesel', value: 24),
-      const CarModel(label: 'AM-825 Super Luxo 4.0 Diesel', value: 25),
-    ];
+VehicleModels tVehicleModel() => const VehicleModels(
+      model: [
+        Model(label: 'AM-825 Luxo 4.0 Diesel', value: 24),
+      ],
+      year: [
+        Year(label: '1999 Gasolina', value: '1999-1'),
+      ],
+    );
 
 List<YearModelEntity> tYearModelEntityList() => [
       const YearModelEntity(label: "2011 Gasolina", value: "2011-1"),
@@ -59,7 +67,6 @@ List<ModelByYearEntity> tModelByYearEntityList() => [
         value: "4403",
       ),
     ];
-
 List<ModelByYearModel> tModelByYearModelList() => [
       const ModelByYearModel(
         label: "AZERA 3.0 V6 24V 4p Aut.",

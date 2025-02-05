@@ -1,8 +1,8 @@
 import 'package:fipe_agora/src/data/models/brands_model.dart';
-import 'package:fipe_agora/src/data/models/car_model.dart';
-import 'package:fipe_agora/src/data/models/fipe_model.dart';
+import 'package:fipe_agora/src/data/models/fipe_table_model.dart';
 import 'package:fipe_agora/src/data/models/model_by_year_model.dart';
 import 'package:fipe_agora/src/data/models/reference_table_model.dart';
+import 'package:fipe_agora/src/data/models/vehicle_model.dart';
 import 'package:fipe_agora/src/data/models/year_model.dart';
 
 abstract class FipeDatasourceInterface {
@@ -11,7 +11,7 @@ abstract class FipeDatasourceInterface {
     required String tableCode,
     required String vehicleCode,
   });
-  Future<List<CarModel>> getCarModels({
+  Future<VehicleModels> getVehicleModels({
     required String tableCode,
     required String vehicleCode,
     required String brandCode,

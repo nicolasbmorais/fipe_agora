@@ -3,18 +3,19 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
-import 'package:fipe_agora/src/domain/entities/brand_entity.dart' as _i6;
-import 'package:fipe_agora/src/domain/entities/car_models_entity.dart' as _i7;
-import 'package:fipe_agora/src/domain/entities/fipe_model.dart' as _i2;
+import 'package:fipe_agora/src/domain/entities/brand_entity.dart' as _i7;
+import 'package:fipe_agora/src/domain/entities/fipe_table_entity.dart' as _i3;
 import 'package:fipe_agora/src/domain/entities/model_by_year_entity.dart'
     as _i9;
 import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart'
-    as _i5;
+    as _i6;
+import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart'
+    as _i2;
 import 'package:fipe_agora/src/domain/entities/year_model_entity.dart' as _i8;
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart'
-    as _i3;
+    as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -30,9 +31,20 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeFipeModelEntity_0 extends _i1.SmartFake
-    implements _i2.FipeModelEntity {
-  _FakeFipeModelEntity_0(
+class _FakeVehicleModelsEntity_0 extends _i1.SmartFake
+    implements _i2.VehicleModelsEntity {
+  _FakeVehicleModelsEntity_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeFipeTableEntity_1 extends _i1.SmartFake
+    implements _i3.FipeTableEntity {
+  _FakeFipeTableEntity_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -45,23 +57,23 @@ class _FakeFipeModelEntity_0 extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockFipeRepositoryInterface extends _i1.Mock
-    implements _i3.FipeRepositoryInterface {
+    implements _i4.FipeRepositoryInterface {
   @override
-  _i4.Future<List<_i5.ReferenceTableEntity>> getReferenceTable() =>
+  _i5.Future<List<_i6.ReferenceTableEntity>> getReferenceTable() =>
       (super.noSuchMethod(
         Invocation.method(
           #getReferenceTable,
           [],
         ),
-        returnValue: _i4.Future<List<_i5.ReferenceTableEntity>>.value(
-            <_i5.ReferenceTableEntity>[]),
+        returnValue: _i5.Future<List<_i6.ReferenceTableEntity>>.value(
+            <_i6.ReferenceTableEntity>[]),
         returnValueForMissingStub:
-            _i4.Future<List<_i5.ReferenceTableEntity>>.value(
-                <_i5.ReferenceTableEntity>[]),
-      ) as _i4.Future<List<_i5.ReferenceTableEntity>>);
+            _i5.Future<List<_i6.ReferenceTableEntity>>.value(
+                <_i6.ReferenceTableEntity>[]),
+      ) as _i5.Future<List<_i6.ReferenceTableEntity>>);
 
   @override
-  _i4.Future<List<_i6.BrandEntity>> getBrands({
+  _i5.Future<List<_i7.BrandEntity>> getBrands({
     required String? tableCode,
     required String? vehicleCode,
   }) =>
@@ -75,20 +87,20 @@ class MockFipeRepositoryInterface extends _i1.Mock
           },
         ),
         returnValue:
-            _i4.Future<List<_i6.BrandEntity>>.value(<_i6.BrandEntity>[]),
+            _i5.Future<List<_i7.BrandEntity>>.value(<_i7.BrandEntity>[]),
         returnValueForMissingStub:
-            _i4.Future<List<_i6.BrandEntity>>.value(<_i6.BrandEntity>[]),
-      ) as _i4.Future<List<_i6.BrandEntity>>);
+            _i5.Future<List<_i7.BrandEntity>>.value(<_i7.BrandEntity>[]),
+      ) as _i5.Future<List<_i7.BrandEntity>>);
 
   @override
-  _i4.Future<List<_i7.CarModelsEntity>> getCarModels({
+  _i5.Future<_i2.VehicleModelsEntity> getVehicleModels({
     required String? tableCode,
     required String? vehicleCode,
     required String? brandCode,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getCarModels,
+          #getVehicleModels,
           [],
           {
             #tableCode: tableCode,
@@ -96,14 +108,36 @@ class MockFipeRepositoryInterface extends _i1.Mock
             #brandCode: brandCode,
           },
         ),
-        returnValue: _i4.Future<List<_i7.CarModelsEntity>>.value(
-            <_i7.CarModelsEntity>[]),
-        returnValueForMissingStub: _i4.Future<List<_i7.CarModelsEntity>>.value(
-            <_i7.CarModelsEntity>[]),
-      ) as _i4.Future<List<_i7.CarModelsEntity>>);
+        returnValue: _i5.Future<_i2.VehicleModelsEntity>.value(
+            _FakeVehicleModelsEntity_0(
+          this,
+          Invocation.method(
+            #getVehicleModels,
+            [],
+            {
+              #tableCode: tableCode,
+              #vehicleCode: vehicleCode,
+              #brandCode: brandCode,
+            },
+          ),
+        )),
+        returnValueForMissingStub: _i5.Future<_i2.VehicleModelsEntity>.value(
+            _FakeVehicleModelsEntity_0(
+          this,
+          Invocation.method(
+            #getVehicleModels,
+            [],
+            {
+              #tableCode: tableCode,
+              #vehicleCode: vehicleCode,
+              #brandCode: brandCode,
+            },
+          ),
+        )),
+      ) as _i5.Future<_i2.VehicleModelsEntity>);
 
   @override
-  _i4.Future<List<_i8.YearModelEntity>> getYearModel({
+  _i5.Future<List<_i8.YearModelEntity>> getYearModel({
     required String? tableCode,
     required String? vehicleCode,
     required String? brandCode,
@@ -120,14 +154,14 @@ class MockFipeRepositoryInterface extends _i1.Mock
             #modelCode: modelCode,
           },
         ),
-        returnValue: _i4.Future<List<_i8.YearModelEntity>>.value(
+        returnValue: _i5.Future<List<_i8.YearModelEntity>>.value(
             <_i8.YearModelEntity>[]),
-        returnValueForMissingStub: _i4.Future<List<_i8.YearModelEntity>>.value(
+        returnValueForMissingStub: _i5.Future<List<_i8.YearModelEntity>>.value(
             <_i8.YearModelEntity>[]),
-      ) as _i4.Future<List<_i8.YearModelEntity>>);
+      ) as _i5.Future<List<_i8.YearModelEntity>>);
 
   @override
-  _i4.Future<List<_i9.ModelByYearEntity>> getModelByYear({
+  _i5.Future<List<_i9.ModelByYearEntity>> getModelByYear({
     required String? tableCode,
     required String? vehicleCode,
     required String? brandCode,
@@ -148,15 +182,15 @@ class MockFipeRepositoryInterface extends _i1.Mock
             #yearModel: yearModel,
           },
         ),
-        returnValue: _i4.Future<List<_i9.ModelByYearEntity>>.value(
+        returnValue: _i5.Future<List<_i9.ModelByYearEntity>>.value(
             <_i9.ModelByYearEntity>[]),
         returnValueForMissingStub:
-            _i4.Future<List<_i9.ModelByYearEntity>>.value(
+            _i5.Future<List<_i9.ModelByYearEntity>>.value(
                 <_i9.ModelByYearEntity>[]),
-      ) as _i4.Future<List<_i9.ModelByYearEntity>>);
+      ) as _i5.Future<List<_i9.ModelByYearEntity>>);
 
   @override
-  _i4.Future<_i2.FipeModelEntity> getFipeTable({
+  _i5.Future<_i3.FipeTableEntity> getFipeTable({
     required String? tableCode,
     required String? vehicleCode,
     required String? brandCode,
@@ -182,7 +216,7 @@ class MockFipeRepositoryInterface extends _i1.Mock
           },
         ),
         returnValue:
-            _i4.Future<_i2.FipeModelEntity>.value(_FakeFipeModelEntity_0(
+            _i5.Future<_i3.FipeTableEntity>.value(_FakeFipeTableEntity_1(
           this,
           Invocation.method(
             #getFipeTable,
@@ -200,7 +234,7 @@ class MockFipeRepositoryInterface extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.FipeModelEntity>.value(_FakeFipeModelEntity_0(
+            _i5.Future<_i3.FipeTableEntity>.value(_FakeFipeTableEntity_1(
           this,
           Invocation.method(
             #getFipeTable,
@@ -217,5 +251,5 @@ class MockFipeRepositoryInterface extends _i1.Mock
             },
           ),
         )),
-      ) as _i4.Future<_i2.FipeModelEntity>);
+      ) as _i5.Future<_i3.FipeTableEntity>);
 }

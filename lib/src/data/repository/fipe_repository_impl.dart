@@ -1,8 +1,8 @@
 import 'package:fipe_agora/src/core/failure.dart';
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_interface.dart';
 import 'package:fipe_agora/src/domain/entities/brand_entity.dart';
-import 'package:fipe_agora/src/domain/entities/car_models_entity.dart';
-import 'package:fipe_agora/src/domain/entities/fipe_model.dart';
+import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
+import 'package:fipe_agora/src/domain/entities/fipe_table_entity.dart';
 import 'package:fipe_agora/src/domain/entities/model_by_year_entity.dart';
 import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart';
 import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
@@ -37,13 +37,13 @@ class FipeRepositoryImpl implements FipeRepositoryInterface {
   }
 
   @override
-  Future<List<CarModelsEntity>> getCarModels({
+  Future<VehicleModelsEntity> getVehicleModels({
     required String tableCode,
     required String vehicleCode,
     required String brandCode,
   }) async {
     try {
-      return await fipeDataSource.getCarModels(
+      return await fipeDataSource.getVehicleModels(
         tableCode: tableCode,
         vehicleCode: vehicleCode,
         brandCode: brandCode,
@@ -96,7 +96,7 @@ class FipeRepositoryImpl implements FipeRepositoryInterface {
   }
 
   @override
-  Future<FipeModelEntity> getFipeTable({
+  Future<FipeTableEntity> getFipeTable({
     required String tableCode,
     required String vehicleCode,
     required String brandCode,

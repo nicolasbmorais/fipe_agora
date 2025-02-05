@@ -24,7 +24,7 @@ void main() {
   });
   group('Reference Table Test', () {
     test('Should return reference table list', () async {
-      when(dio.get(any)).thenAnswer((_) async {
+      when(dio.post(any)).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 200,
@@ -38,7 +38,7 @@ void main() {
     });
 
     test('Should throws error on get reference table list', () async {
-      when(dio.get(any)).thenAnswer((_) async {
+      when(dio.post(any)).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -54,7 +54,7 @@ void main() {
 
   group('Brand List Test', () {
     test('Should return a brand list', () async {
-      when(dio.get(any)).thenAnswer((_) async => Response(
+      when(dio.post(any)).thenAnswer((_) async => Response(
             requestOptions: requestOptions,
             statusCode: 200,
             data: List.from(jsonDecode(fixture('brands.json'))),
@@ -67,7 +67,7 @@ void main() {
     });
 
     test('Should throws error on get reference table list', () async {
-      when(dio.get(any)).thenAnswer((_) async {
+      when(dio.post(any)).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -83,25 +83,25 @@ void main() {
 
   group('Car model List Test', () {
     test('Should return Car model list', () async {
-      when(dio.get(any)).thenAnswer((_) async {
+      when(dio.post(any)).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 200,
-          data: List.from(jsonDecode(fixture('car_models.json'))),
+          data: jsonDecode(fixture('car_models.json')),
         );
       });
 
-      final result = await datasourceImpl.getCarModels(
+      final result = await datasourceImpl.getVehicleModels(
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
       );
 
-      expect(result, tCarModelList());
+      expect(result, tVehicleModel());
     });
 
     test('Should throws error on get reference table list', () async {
-      when(dio.get(any)).thenAnswer((_) async {
+      when(dio.post(any)).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -109,18 +109,18 @@ void main() {
       });
 
       expect(
-        () => datasourceImpl.getCarModels(
+        () => datasourceImpl.getVehicleModels(
           tableCode: 'tableCode',
           vehicleCode: 'vehicleCode',
           brandCode: 'brandCode',
         ),
-        throwsA(isA<CarModelFailure>()),
+        throwsA(isA<VehicleModelFailure>()),
       );
     });
   });
   group('Year model List Test', () {
     test('Should return year model list', () async {
-      when(dio.get(any)).thenAnswer((_) async {
+      when(dio.post(any)).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 200,
@@ -139,7 +139,7 @@ void main() {
     });
 
     test('Should throws error on get reference table list', () async {
-      when(dio.get(any)).thenAnswer((_) async {
+      when(dio.post(any)).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -160,7 +160,7 @@ void main() {
 
   group('Model by Year List Test', () {
     test('Should return Model by Year list', () async {
-      when(dio.get(any)).thenAnswer((_) async {
+      when(dio.post(any)).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 200,
@@ -181,7 +181,7 @@ void main() {
     });
 
     test('Should throws error on get Model by Year list', () async {
-      when(dio.get(any)).thenAnswer((_) async {
+      when(dio.post(any)).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,

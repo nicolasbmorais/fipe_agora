@@ -3,10 +3,10 @@ import 'package:fipe_agora/environment.dart';
 import 'package:fipe_agora/src/core/failure.dart';
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_interface.dart';
 import 'package:fipe_agora/src/data/models/brands_model.dart';
-import 'package:fipe_agora/src/data/models/car_model.dart';
-import 'package:fipe_agora/src/data/models/fipe_model.dart';
+import 'package:fipe_agora/src/data/models/fipe_table_model.dart';
 import 'package:fipe_agora/src/data/models/model_by_year_model.dart';
 import 'package:fipe_agora/src/data/models/reference_table_model.dart';
+import 'package:fipe_agora/src/data/models/vehicle_model.dart';
 import 'package:fipe_agora/src/data/models/year_model.dart';
 
 class FipeDatasourceImpl implements FipeDatasourceInterface {
@@ -17,9 +17,7 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
   @override
   Future<List<ReferenceTableModel>> getReferenceTable() async {
     try {
-      final response = await dio.get(
-        '${Environment.baseURL}ConsultarTabelaDeReferencia',
-      );
+      final response = await dio.post('ConsultarTabelaDeReferencia');
 
       if (response.statusCode != 200 || response.data == null) {
         throw ApiFailure();
@@ -45,7 +43,7 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
     required String vehicleCode,
   }) async {
     try {
-      final response = await dio.get('${Environment.baseURL}ConsultarMarcas');
+      final response = await dio.post('${Environment.baseURL}ConsultarMarcas');
 
       if (response.statusCode != 200 || response.data == null) {
         throw BrandsFailure();
@@ -63,26 +61,23 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
   }
 
   @override
-  Future<List<CarModel>> getCarModels({
+  Future<VehicleModels> getVehicleModels({
     required String tableCode,
     required String vehicleCode,
     required String brandCode,
   }) async {
     try {
-      final response = await dio.get('${Environment.baseURL}ConsultarModelos');
+      final response = await dio.post('${Environment.baseURL}ConsultarModelos');
 
       if (response.statusCode != 200 || response.data == null) {
-        throw BrandsFailure();
+        throw VehicleModelFailure();
       }
 
-      return response.data is List
-          ? List<CarModel>.from(
-              response.data.map((item) => CarModel.fromJson(item)))
-          : <CarModel>[];
+      return VehicleModels.fromJson(response.data);
     } on DioException catch (_) {
-      throw BrandsFailure();
+      throw VehicleModelFailure();
     } catch (err) {
-      throw CarModelFailure(error: err.toString());
+      throw VehicleModelFailure(error: err.toString());
     }
   }
 
@@ -95,7 +90,7 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
   }) async {
     try {
       final response =
-          await dio.get('${Environment.baseURL}ConsultarAnoModelo');
+          await dio.post('${Environment.baseURL}ConsultarAnoModelo');
 
       if (response.statusCode != 200 || response.data == null) {
         throw YearModelFailure();
@@ -123,7 +118,7 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
   }) async {
     try {
       final response =
-          await dio.get('${Environment.baseURL}ConsultarModelosAtravesDoAno');
+          await dio.post('${Environment.baseURL}ConsultarModelosAtravesDoAno');
 
       if (response.statusCode != 200 || response.data == null) {
         throw ModelByYearFailure();
@@ -153,7 +148,7 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
   }) async {
     try {
       final response = await dio
-          .get('${Environment.baseURL}ConsultarValorComTodosParametros');
+          .post('${Environment.baseURL}ConsultarValorComTodosParametros');
 
       if (response.statusCode != 200 || response.data == null) {
         throw FipeFailure();

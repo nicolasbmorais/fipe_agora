@@ -1,16 +1,16 @@
 import 'package:equatable/equatable.dart';
 import 'package:fipe_agora/src/core/usecase.dart';
-import 'package:fipe_agora/src/domain/entities/car_models_entity.dart';
+import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart';
 
-class GetCarModelsUsecase
-    extends Usecase<List<CarModelsEntity>, GetCarModelsParams> {
+class GetVehicleModelsUsecase
+    extends Usecase<VehicleModelsEntity, GetVehicleModelsParams> {
   final FipeRepositoryInterface repository;
 
-  GetCarModelsUsecase({required this.repository});
+  GetVehicleModelsUsecase({required this.repository});
   @override
-  Future<List<CarModelsEntity>> call(GetCarModelsParams params) async {
-    return await repository.getCarModels(
+  Future<VehicleModelsEntity> call(GetVehicleModelsParams params) async {
+    return await repository.getVehicleModels(
       tableCode: params.tableCode,
       vehicleCode: params.vehicleCode,
       brandCode: params.brandCode,
@@ -18,18 +18,16 @@ class GetCarModelsUsecase
   }
 }
 
-class GetCarModelsParams extends Equatable {
+class GetVehicleModelsParams extends Equatable {
   final String tableCode;
   final String vehicleCode;
   final String brandCode;
-  final String modelCode;
 
-  const GetCarModelsParams({
+  const GetVehicleModelsParams({
     required this.tableCode,
     required this.vehicleCode,
     required this.brandCode,
-    required this.modelCode,
   });
   @override
-  List<Object?> get props => [tableCode, vehicleCode, brandCode, modelCode];
+  List<Object?> get props => [tableCode, vehicleCode, brandCode];
 }

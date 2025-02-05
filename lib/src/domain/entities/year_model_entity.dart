@@ -9,6 +9,11 @@ class YearModelEntity extends Equatable {
     required this.value,
   });
 
+  factory YearModelEntity.empty() => const YearModelEntity(
+        label: '',
+        value: '',
+      );
+
   @override
   List<Object?> get props => [label, value];
 }

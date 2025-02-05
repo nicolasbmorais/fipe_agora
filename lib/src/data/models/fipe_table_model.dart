@@ -1,6 +1,6 @@
-import 'package:fipe_agora/src/domain/entities/fipe_model.dart';
+import 'package:fipe_agora/src/domain/entities/fipe_table_entity.dart';
 
-class FipeModel extends FipeModelEntity {
+class FipeModel extends FipeTableEntity {
   FipeModel({
     required super.value,
     required super.brand,

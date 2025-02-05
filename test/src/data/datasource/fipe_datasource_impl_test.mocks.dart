@@ -3,16 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i6;
 
 import 'package:dio/dio.dart' as _i2;
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_impl.dart'
-    as _i4;
-import 'package:fipe_agora/src/data/models/brands_model.dart' as _i7;
-import 'package:fipe_agora/src/data/models/car_model.dart' as _i8;
-import 'package:fipe_agora/src/data/models/fipe_model.dart' as _i3;
+    as _i5;
+import 'package:fipe_agora/src/data/models/brands_model.dart' as _i8;
+import 'package:fipe_agora/src/data/models/fipe_table_model.dart' as _i4;
 import 'package:fipe_agora/src/data/models/model_by_year_model.dart' as _i10;
-import 'package:fipe_agora/src/data/models/reference_table_model.dart' as _i6;
+import 'package:fipe_agora/src/data/models/reference_table_model.dart' as _i7;
+import 'package:fipe_agora/src/data/models/vehicle_model.dart' as _i3;
 import 'package:fipe_agora/src/data/models/year_model.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -39,8 +39,18 @@ class _FakeDio_0 extends _i1.SmartFake implements _i2.Dio {
         );
 }
 
-class _FakeFipeModel_1 extends _i1.SmartFake implements _i3.FipeModel {
-  _FakeFipeModel_1(
+class _FakeVehicleModels_1 extends _i1.SmartFake implements _i3.VehicleModels {
+  _FakeVehicleModels_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeFipeModel_2 extends _i1.SmartFake implements _i4.FipeModel {
+  _FakeFipeModel_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -53,7 +63,7 @@ class _FakeFipeModel_1 extends _i1.SmartFake implements _i3.FipeModel {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockFipeDatasourceImpl extends _i1.Mock
-    implements _i4.FipeDatasourceImpl {
+    implements _i5.FipeDatasourceImpl {
   @override
   _i2.Dio get dio => (super.noSuchMethod(
         Invocation.getter(#dio),
@@ -68,21 +78,21 @@ class MockFipeDatasourceImpl extends _i1.Mock
       ) as _i2.Dio);
 
   @override
-  _i5.Future<List<_i6.ReferenceTableModel>> getReferenceTable() =>
+  _i6.Future<List<_i7.ReferenceTableModel>> getReferenceTable() =>
       (super.noSuchMethod(
         Invocation.method(
           #getReferenceTable,
           [],
         ),
-        returnValue: _i5.Future<List<_i6.ReferenceTableModel>>.value(
-            <_i6.ReferenceTableModel>[]),
+        returnValue: _i6.Future<List<_i7.ReferenceTableModel>>.value(
+            <_i7.ReferenceTableModel>[]),
         returnValueForMissingStub:
-            _i5.Future<List<_i6.ReferenceTableModel>>.value(
-                <_i6.ReferenceTableModel>[]),
-      ) as _i5.Future<List<_i6.ReferenceTableModel>>);
+            _i6.Future<List<_i7.ReferenceTableModel>>.value(
+                <_i7.ReferenceTableModel>[]),
+      ) as _i6.Future<List<_i7.ReferenceTableModel>>);
 
   @override
-  _i5.Future<List<_i7.BrandModel>> getBrands({
+  _i6.Future<List<_i8.BrandModel>> getBrands({
     required String? tableCode,
     required String? vehicleCode,
   }) =>
@@ -95,20 +105,20 @@ class MockFipeDatasourceImpl extends _i1.Mock
             #vehicleCode: vehicleCode,
           },
         ),
-        returnValue: _i5.Future<List<_i7.BrandModel>>.value(<_i7.BrandModel>[]),
+        returnValue: _i6.Future<List<_i8.BrandModel>>.value(<_i8.BrandModel>[]),
         returnValueForMissingStub:
-            _i5.Future<List<_i7.BrandModel>>.value(<_i7.BrandModel>[]),
-      ) as _i5.Future<List<_i7.BrandModel>>);
+            _i6.Future<List<_i8.BrandModel>>.value(<_i8.BrandModel>[]),
+      ) as _i6.Future<List<_i8.BrandModel>>);
 
   @override
-  _i5.Future<List<_i8.CarModel>> getCarModels({
+  _i6.Future<_i3.VehicleModels> getVehicleModels({
     required String? tableCode,
     required String? vehicleCode,
     required String? brandCode,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getCarModels,
+          #getVehicleModels,
           [],
           {
             #tableCode: tableCode,
@@ -116,13 +126,35 @@ class MockFipeDatasourceImpl extends _i1.Mock
             #brandCode: brandCode,
           },
         ),
-        returnValue: _i5.Future<List<_i8.CarModel>>.value(<_i8.CarModel>[]),
+        returnValue: _i6.Future<_i3.VehicleModels>.value(_FakeVehicleModels_1(
+          this,
+          Invocation.method(
+            #getVehicleModels,
+            [],
+            {
+              #tableCode: tableCode,
+              #vehicleCode: vehicleCode,
+              #brandCode: brandCode,
+            },
+          ),
+        )),
         returnValueForMissingStub:
-            _i5.Future<List<_i8.CarModel>>.value(<_i8.CarModel>[]),
-      ) as _i5.Future<List<_i8.CarModel>>);
+            _i6.Future<_i3.VehicleModels>.value(_FakeVehicleModels_1(
+          this,
+          Invocation.method(
+            #getVehicleModels,
+            [],
+            {
+              #tableCode: tableCode,
+              #vehicleCode: vehicleCode,
+              #brandCode: brandCode,
+            },
+          ),
+        )),
+      ) as _i6.Future<_i3.VehicleModels>);
 
   @override
-  _i5.Future<List<_i9.YearModel>> getYearModel({
+  _i6.Future<List<_i9.YearModel>> getYearModel({
     required String? tableCode,
     required String? vehicleCode,
     required String? brandCode,
@@ -139,13 +171,13 @@ class MockFipeDatasourceImpl extends _i1.Mock
             #modelCode: modelCode,
           },
         ),
-        returnValue: _i5.Future<List<_i9.YearModel>>.value(<_i9.YearModel>[]),
+        returnValue: _i6.Future<List<_i9.YearModel>>.value(<_i9.YearModel>[]),
         returnValueForMissingStub:
-            _i5.Future<List<_i9.YearModel>>.value(<_i9.YearModel>[]),
-      ) as _i5.Future<List<_i9.YearModel>>);
+            _i6.Future<List<_i9.YearModel>>.value(<_i9.YearModel>[]),
+      ) as _i6.Future<List<_i9.YearModel>>);
 
   @override
-  _i5.Future<List<_i10.ModelByYearModel>> getModelByYear({
+  _i6.Future<List<_i10.ModelByYearModel>> getModelByYear({
     required String? tableCode,
     required String? vehicleCode,
     required String? brandCode,
@@ -166,15 +198,15 @@ class MockFipeDatasourceImpl extends _i1.Mock
             #yearModel: yearModel,
           },
         ),
-        returnValue: _i5.Future<List<_i10.ModelByYearModel>>.value(
+        returnValue: _i6.Future<List<_i10.ModelByYearModel>>.value(
             <_i10.ModelByYearModel>[]),
         returnValueForMissingStub:
-            _i5.Future<List<_i10.ModelByYearModel>>.value(
+            _i6.Future<List<_i10.ModelByYearModel>>.value(
                 <_i10.ModelByYearModel>[]),
-      ) as _i5.Future<List<_i10.ModelByYearModel>>);
+      ) as _i6.Future<List<_i10.ModelByYearModel>>);
 
   @override
-  _i5.Future<_i3.FipeModel> getFipeTable({
+  _i6.Future<_i4.FipeModel> getFipeTable({
     required String? tableCode,
     required String? vehicleCode,
     required String? brandCode,
@@ -199,7 +231,7 @@ class MockFipeDatasourceImpl extends _i1.Mock
             #consultType: consultType,
           },
         ),
-        returnValue: _i5.Future<_i3.FipeModel>.value(_FakeFipeModel_1(
+        returnValue: _i6.Future<_i4.FipeModel>.value(_FakeFipeModel_2(
           this,
           Invocation.method(
             #getFipeTable,
@@ -217,7 +249,7 @@ class MockFipeDatasourceImpl extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i3.FipeModel>.value(_FakeFipeModel_1(
+            _i6.Future<_i4.FipeModel>.value(_FakeFipeModel_2(
           this,
           Invocation.method(
             #getFipeTable,
@@ -234,5 +266,5 @@ class MockFipeDatasourceImpl extends _i1.Mock
             },
           ),
         )),
-      ) as _i5.Future<_i3.FipeModel>);
+      ) as _i6.Future<_i4.FipeModel>);
 }

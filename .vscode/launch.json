@@ -1,25 +1,34 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "fipe_agora",
+            "name": "fipe_agora (debug mode)",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--dart-define=BASE_URL=https://fipe2.p.rapidapi.com/",
+                "--dart-define=API_KEY=53e9d380d7msha3584e2ff8b21d9p13a50ajsn0cfba2074d16"
+            ]
         },
         {
             "name": "fipe_agora (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "args": [
+                "--dart-define=BASE_URL=https://fipe2.p.rapidapi.com/",
+                "--dart-define=API_KEY=53e9d380d7msha3584e2ff8b21d9p13a50ajsn0cfba2074d16"
+            ]
         },
         {
             "name": "fipe_agora (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "release",
+            "args": [
+                "--dart-define=BASE_URL=https://fipe2.p.rapidapi.com/",
+                "--dart-define=API_KEY=53e9d380d7msha3584e2ff8b21d9p13a50ajsn0cfba2074d16"
+            ]
         }
     ]
 }

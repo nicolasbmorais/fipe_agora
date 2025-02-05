@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:fipe_agora/src/core/usecase.dart';
-import 'package:fipe_agora/src/domain/entities/fipe_model.dart';
+import 'package:fipe_agora/src/domain/entities/fipe_table_entity.dart';
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart';
 
-class GetFipeTableUsecase extends Usecase<FipeModelEntity, GetFipeParams> {
+class GetFipeTableUsecase extends Usecase<FipeTableEntity, GetFipeParams> {
   final FipeRepositoryInterface repository;
 
   GetFipeTableUsecase({required this.repository});
   @override
-  Future<FipeModelEntity> call(GetFipeParams params) async {
+  Future<FipeTableEntity> call(GetFipeParams params) async {
     return await repository.getFipeTable(
       tableCode: params.tableCode,
       vehicleCode: params.vehicleCode,

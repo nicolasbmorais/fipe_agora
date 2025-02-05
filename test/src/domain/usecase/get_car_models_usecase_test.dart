@@ -10,25 +10,24 @@ import 'get_reference_table_usecase_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<FipeRepositoryInterface>()])
 void main() {
   late FipeRepositoryInterface fipeRepositoryInterface;
-  late GetCarModelsUsecase getCarModelsUsecase;
+  late GetVehicleModelsUsecase getVehicleModelsUsecase;
 
   setUp(() {
     fipeRepositoryInterface = MockFipeRepositoryInterface();
-    getCarModelsUsecase =
-        GetCarModelsUsecase(repository: fipeRepositoryInterface);
+    getVehicleModelsUsecase =
+        GetVehicleModelsUsecase(repository: fipeRepositoryInterface);
   });
   test('Get Car Models Usecase', () async {
-    when(fipeRepositoryInterface.getCarModels(
+    when(fipeRepositoryInterface.getVehicleModels(
       tableCode: 'tableCode',
       vehicleCode: 'vehicleCode',
       brandCode: 'brandCode',
-    )).thenAnswer((_) async => tCarModelEntityList());
+    )).thenAnswer((_) async => tVehicleModelEntity());
 
-    final response = await getCarModelsUsecase(const GetCarModelsParams(
+    final response = await getVehicleModelsUsecase(const GetVehicleModelsParams(
       tableCode: 'tableCode',
       vehicleCode: 'vehicleCode',
       brandCode: 'brandCode',
-      modelCode: 'modelCode',
     ));
 
     expect(response, response);

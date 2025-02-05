@@ -1,8 +1,7 @@
 import 'package:fipe_agora/src/core/failure.dart';
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_interface.dart';
 import 'package:fipe_agora/src/data/models/brands_model.dart';
-import 'package:fipe_agora/src/data/models/car_model.dart';
-import 'package:fipe_agora/src/data/models/model_by_year_model.dart';
+import 'package:fipe_agora/src/data/models/vehicle_model.dart';
 import 'package:fipe_agora/src/data/models/year_model.dart';
 import 'package:fipe_agora/src/data/repository/fipe_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -82,47 +81,47 @@ void main() {
 
   group('Function to get car models', () {
     test('Should return a list of car model', () async {
-      when(fipeRepositoryImpl.getCarModels(
+      when(fipeRepositoryImpl.getVehicleModels(
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
-      )).thenAnswer((_) async => tCarModelList());
+      )).thenAnswer((_) async => tVehicleModel());
 
-      final response = await fipeDataSource.getCarModels(
+      final response = await fipeDataSource.getVehicleModels(
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
       );
 
-      expect(response, tCarModelList());
+      expect(response, tVehicleModel());
     });
 
-    test('Should return an empty list when no CarModels are available',
+    test('Should return an empty list when no VehicleModels are available',
         () async {
-      when(fipeRepositoryImpl.getCarModels(
+      when(fipeRepositoryImpl.getVehicleModels(
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
-      )).thenAnswer((_) async => <CarModel>[]);
+      )).thenAnswer((_) async => const VehicleModels(model: [], year: []));
 
-      final response = await fipeDataSource.getCarModels(
+      final response = await fipeDataSource.getVehicleModels(
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
       );
-      expect(response, <CarModel>[]);
+      expect(response, const VehicleModels(model: [], year: []));
     });
 
-    test('Should throw an exception when getCarModels fails', () async {
-      when(fipeRepositoryImpl.getCarModels(
+    test('Should throw an exception when getVehicleModels fails', () async {
+      when(fipeRepositoryImpl.getVehicleModels(
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
-      )).thenThrow(Exception('Failed to fetch CarModels'));
+      )).thenThrow(Exception('Failed to fetch VehicleModels'));
 
       expect(
         () async {
-          await fipeDataSource.getCarModels(
+          await fipeDataSource.getVehicleModels(
             tableCode: 'tableCode',
             vehicleCode: 'vehicleCode',
             brandCode: 'brandCode',
@@ -183,76 +182,6 @@ void main() {
               vehicleCode: 'vehicleCode',
               brandCode: 'brandCode',
               modelCode: 'modelCode');
-        },
-        throwsA(isA<Exception>()),
-      );
-    });
-  });
-
-  group('Function to get model by year', () {
-    test('Should return a list of  model by year', () async {
-      when(fipeRepositoryImpl.getModelByYear(
-        tableCode: 'tableCode',
-        vehicleCode: 'vehicleCode',
-        brandCode: 'brandCode',
-        year: 'year',
-        fuelCode: 'fuelCode',
-        yearModel: 'yearModel',
-      )).thenAnswer((_) async => tModelByYearModelList());
-
-      final response = await fipeDataSource.getModelByYear(
-        tableCode: 'tableCode',
-        vehicleCode: 'vehicleCode',
-        brandCode: 'brandCode',
-        year: 'year',
-        fuelCode: 'fuelCode',
-        yearModel: 'yearModel',
-      );
-
-      expect(response, tModelByYearModelList());
-    });
-
-    test('Should return an empty list when no model are available', () async {
-      when(fipeRepositoryImpl.getModelByYear(
-        tableCode: 'tableCode',
-        vehicleCode: 'vehicleCode',
-        brandCode: 'brandCode',
-        year: 'year',
-        fuelCode: 'fuelCode',
-        yearModel: 'yearModel',
-      )).thenAnswer((_) async => <ModelByYearModel>[]);
-
-      final response = await fipeDataSource.getModelByYear(
-        tableCode: 'tableCode',
-        vehicleCode: 'vehicleCode',
-        brandCode: 'brandCode',
-        year: 'year',
-        fuelCode: 'fuelCode',
-        yearModel: 'yearModel',
-      );
-      expect(response, <ModelByYearModel>[]);
-    });
-
-    test('Should throw an exception when getModelByYear fails', () async {
-      when(fipeRepositoryImpl.getModelByYear(
-              tableCode: 'tableCode',
-              vehicleCode: 'vehicleCode',
-              brandCode: 'brandCode',
-              year: 'year',
-              fuelCode: 'fuelCode',
-              yearModel: 'yearModel'))
-          .thenThrow(Exception('Failed to fetch ModelByYear'));
-
-      expect(
-        () async {
-          await fipeDataSource.getModelByYear(
-            tableCode: 'tableCode',
-            vehicleCode: 'vehicleCode',
-            brandCode: 'brandCode',
-            year: 'year',
-            fuelCode: 'fuelCode',
-            yearModel: 'yearModel',
-          );
         },
         throwsA(isA<Exception>()),
       );

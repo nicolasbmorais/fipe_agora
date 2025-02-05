@@ -9,6 +9,11 @@ class ReferenceTableEntity extends Equatable {
     required this.mes,
   });
 
+  factory ReferenceTableEntity.empty() => const ReferenceTableEntity(
+        codigo: 317,
+        mes: 'janeiro/2025',
+      );
+
   @override
   List<Object?> get props => [codigo, mes];
 }

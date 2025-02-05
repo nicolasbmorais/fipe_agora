@@ -9,6 +9,11 @@ class BrandEntity extends Equatable {
     required this.value,
   });
 
+  factory BrandEntity.empty() => const BrandEntity(
+        label: '',
+        value: '',
+      );
+
   @override
   List<Object?> get props => [label, value];
 }

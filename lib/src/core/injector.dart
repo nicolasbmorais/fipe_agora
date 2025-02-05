@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_impl.dart';
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_interface.dart';
 import 'package:fipe_agora/src/data/repository/fipe_repository_impl.dart';
@@ -16,12 +17,14 @@ import 'package:get_it/get_it.dart';
 final GetIt getIt = GetIt.instance;
 
 Future<void> setupInjector() async {
-  // Externals
-  getIt.registerLazySingleton<DioClientInterface>(() => DioClient());
+  final dioClient = DioClient();
+  getIt.registerLazySingleton<DioClientInterface>(() => dioClient);
+
+  getIt.registerLazySingleton<Dio>(() => dioClient.dio);
 
   // Datasources
   getIt.registerLazySingleton<FipeDatasourceInterface>(
-    () => FipeDatasourceImpl(dio: getIt.get<DioClientInterface>().dio),
+    () => FipeDatasourceImpl(dio: getIt.get<Dio>()),
   );
 
   // Repositorys
@@ -34,14 +37,13 @@ Future<void> setupInjector() async {
   // UseCases
   getIt.registerLazySingleton<GetReferenceTableUsecase>(
     () => GetReferenceTableUsecase(
-      repository: getIt.get<FipeRepositoryInterface>(),
-    ),
+        repository: getIt.get<FipeRepositoryInterface>()),
   );
   getIt.registerLazySingleton<GetBrandsUsecase>(
     () => GetBrandsUsecase(repository: getIt()),
   );
-  getIt.registerLazySingleton<GetCarModelsUsecase>(
-    () => GetCarModelsUsecase(repository: getIt()),
+  getIt.registerLazySingleton<GetVehicleModelsUsecase>(
+    () => GetVehicleModelsUsecase(repository: getIt()),
   );
   getIt.registerLazySingleton<GetYearModelUsecase>(
     () => GetYearModelUsecase(repository: getIt()),
@@ -58,7 +60,7 @@ Future<void> setupInjector() async {
     () => FipeController(
       getReferenceTableUsecase: getIt(),
       getBrandsUsecase: getIt(),
-      getCarModelsUsecase: getIt(),
+      getVehicleModelsUsecase: getIt(),
       getFipeTableUsecase: getIt(),
       getYearModelUsecase: getIt(),
       getModelByYearUsecase: getIt(),
