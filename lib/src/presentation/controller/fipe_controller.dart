@@ -9,12 +9,7 @@ import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart';
 import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
 import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
 import 'package:fipe_agora/src/domain/failure.dart';
-import 'package:fipe_agora/src/domain/usecase/get_brands_usecase.dart';
-import 'package:fipe_agora/src/domain/usecase/get_fipe_table_usecase.dart';
-import 'package:fipe_agora/src/domain/usecase/get_model_by_year_usecase.dart';
-import 'package:fipe_agora/src/domain/usecase/get_reference_table_usecase.dart';
-import 'package:fipe_agora/src/domain/usecase/get_vehicle_models_usecase.dart';
-import 'package:fipe_agora/src/domain/usecase/get_yearmodel_usecase.dart';
+import 'package:fipe_agora/src/domain/usecase/usecase.dart';
 
 class VehicleType extends Equatable {
   final String name;

@@ -14,27 +14,27 @@ class ResultInfoWidget extends StatelessWidget {
         final fipeTable = controller.fipeTable;
         return Column(
           children: [
-            ResultInfoListTile(
+            _ResultInfoListTile(
               text: 'Marca',
               suffixText: fipeTable.brand,
             ),
-            ResultInfoListTile(
+            _ResultInfoListTile(
               text: 'Modelo',
               suffixText: fipeTable.model,
             ),
-            ResultInfoListTile(
+            _ResultInfoListTile(
               text: 'Mês de Referência',
               suffixText: fipeTable.referenceMonth,
             ),
-            ResultInfoListTile(
+            _ResultInfoListTile(
               text: 'Combustível',
               suffixText: fipeTable.fuel,
             ),
-            ResultInfoListTile(
+            _ResultInfoListTile(
               text: r'Valor em $',
               suffixText: fipeTable.value,
             ),
-            ResultInfoListTile(
+            _ResultInfoListTile(
               text: 'Data da consulta',
               suffixText: fipeTable.consultationDate,
             ),
@@ -45,12 +45,11 @@ class ResultInfoWidget extends StatelessWidget {
   }
 }
 
-class ResultInfoListTile extends StatelessWidget {
+class _ResultInfoListTile extends StatelessWidget {
   final String text;
   final String suffixText;
 
-  const ResultInfoListTile(
-      {super.key, required this.text, required this.suffixText});
+  const _ResultInfoListTile({required this.text, required this.suffixText});
   @override
   Widget build(BuildContext context) {
     return Column(
