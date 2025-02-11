@@ -29,3 +29,11 @@ class FipeTableException implements Exception {
       : message = message ??
             'Desculpe, não foi possível consultar a Tabela Fipe. Tente novamente';
 }
+
+class ModelByYearException implements Exception {
+  final String message;
+
+  ModelByYearException({String? message})
+      : message = message ??
+            'Desculpe, não foi possível consultar a Tabela Fipe. Tente novamente';
+}

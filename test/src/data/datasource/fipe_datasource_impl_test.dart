@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:fipe_agora/src/domain/failure.dart';
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_impl.dart';
+import 'package:fipe_agora/src/data/exceptions/fipe_exceptions.dart';
+import 'package:fipe_agora/src/domain/failure.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -16,7 +17,7 @@ void main() {
   late MockDio dio;
   late FipeDatasourceImpl datasourceImpl;
 
-  RequestOptions requestOptions = RequestOptions();
+  RequestOptions requestOptions = RequestOptions(path: '/fake_path');
 
   setUp(() {
     dio = MockDio();
@@ -24,7 +25,7 @@ void main() {
   });
   group('Reference Table Test', () {
     test('Should return reference table list', () async {
-      when(dio.post(any)).thenAnswer((_) async {
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 200,
@@ -38,7 +39,7 @@ void main() {
     });
 
     test('Should throws error on get reference table list', () async {
-      when(dio.post(any)).thenAnswer((_) async {
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -54,11 +55,12 @@ void main() {
 
   group('Brand List Test', () {
     test('Should return a brand list', () async {
-      when(dio.post(any)).thenAnswer((_) async => Response(
-            requestOptions: requestOptions,
-            statusCode: 200,
-            data: List.from(jsonDecode(fixture('brands.json'))),
-          ));
+      when(dio.post(any, data: anyNamed('data')))
+          .thenAnswer((_) async => Response(
+                requestOptions: requestOptions,
+                statusCode: 200,
+                data: List.from(jsonDecode(fixture('brands.json'))),
+              ));
 
       final result =
           await datasourceImpl.getBrands(tableCode: '290', vehicleCode: '1');
@@ -67,7 +69,7 @@ void main() {
     });
 
     test('Should throws error on get reference table list', () async {
-      when(dio.post(any)).thenAnswer((_) async {
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -76,14 +78,14 @@ void main() {
 
       expect(
         () => datasourceImpl.getBrands(tableCode: '290', vehicleCode: '1'),
-        throwsA(isA<BrandsFailure>()),
+        throwsA(isA<BrandsException>()),
       );
     });
   });
 
-  group('Car model List Test', () {
-    test('Should return Car model list', () async {
-      when(dio.post(any)).thenAnswer((_) async {
+  group('Vehicle Model Test', () {
+    test('Should return Vehicle Model', () async {
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 200,
@@ -101,7 +103,7 @@ void main() {
     });
 
     test('Should throws error on get reference table list', () async {
-      when(dio.post(any)).thenAnswer((_) async {
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -114,13 +116,13 @@ void main() {
           vehicleCode: 'vehicleCode',
           brandCode: 'brandCode',
         ),
-        throwsA(isA<VehicleModelFailure>()),
+        throwsA(isA<VehicleModelsException>()),
       );
     });
   });
   group('Year model List Test', () {
     test('Should return year model list', () async {
-      when(dio.post(any)).thenAnswer((_) async {
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 200,
@@ -139,7 +141,7 @@ void main() {
     });
 
     test('Should throws error on get reference table list', () async {
-      when(dio.post(any)).thenAnswer((_) async {
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -153,14 +155,14 @@ void main() {
           brandCode: 'brandCode',
           modelCode: 'modelCode',
         ),
-        throwsA(isA<YearModelFailure>()),
+        throwsA(isA<YearModelException>()),
       );
     });
   });
 
   group('Model by Year List Test', () {
     test('Should return Model by Year list', () async {
-      when(dio.post(any)).thenAnswer((_) async {
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 200,
@@ -181,7 +183,7 @@ void main() {
     });
 
     test('Should throws error on get Model by Year list', () async {
-      when(dio.post(any)).thenAnswer((_) async {
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -197,7 +199,54 @@ void main() {
                 fuelCode: 'fuelCode',
                 yearModel: 'yearModel',
               ),
-          throwsA(isA<ModelByYearFailure>()));
+          throwsA(isA<ModelByYearException>()));
+    });
+  });
+  group('Fipe Table Test', () {
+    test('Should return Fipe Table', () async {
+      when(dio.post(any, data: anyNamed('data')))
+          .thenAnswer((invocation) async {
+        return Response(
+          requestOptions: requestOptions,
+          statusCode: 200,
+          data: jsonDecode(fixture('fipe_table.json')) as Map<String, dynamic>,
+        );
+      });
+
+      final result = await datasourceImpl.getFipeTable(
+        tableCode: 'tableCode',
+        vehicleCode: 'vehicleCode',
+        brandCode: 'brandCode',
+        year: 'year',
+        fuelCode: 'fuelCode',
+        yearModel: 'yearModel',
+        modelCode: 'modelCode',
+        consultType: 'consultType',
+      );
+
+      expect(result, tFipeTableModel());
+    });
+
+    test('Should throws error on get Fipe Table', () async {
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
+        return Response(
+          requestOptions: requestOptions,
+          statusCode: 400,
+        );
+      });
+
+      expect(
+          () => datasourceImpl.getFipeTable(
+                tableCode: 'tableCode',
+                vehicleCode: 'vehicleCode',
+                brandCode: 'brandCode',
+                year: 'year',
+                fuelCode: 'fuelCode',
+                yearModel: 'yearModel',
+                modelCode: 'modelCode',
+                consultType: 'consultType',
+              ),
+          throwsA(isA<FipeTableException>()));
     });
   });
 }

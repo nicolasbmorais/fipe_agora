@@ -108,3 +108,17 @@ FipeTableModel tFipeTableModel() => const FipeTableModel(
       fuelAcronym: 'G',
       consultationDate: "terça-feira, 11 de fevereiro de 2025 16:16",
     );
+
+FipeTableModel tEmptyFipeTableModel() => const FipeTableModel(
+      value: '',
+      brand: '',
+      model: '',
+      modelYear: 0,
+      fuel: '',
+      fipeCode: '',
+      referenceMonth: '',
+      authentication: '',
+      vehicleType: 0,
+      fuelAcronym: '',
+      consultationDate: '',
+    );

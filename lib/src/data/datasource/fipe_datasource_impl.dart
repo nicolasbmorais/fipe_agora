@@ -140,7 +140,7 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
           await dio.post('${Environment.baseURL}ConsultarModelosAtravesDoAno');
 
       if (response.statusCode != 200 || response.data == null) {
-        throw ModelByYearFailure();
+        throw ModelByYearException();
       }
 
       return response.data is List
@@ -148,9 +148,9 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
               response.data.map((item) => ModelByYearModel.fromJson(item)))
           : <ModelByYearModel>[];
     } on DioException catch (_) {
-      throw ModelByYearFailure();
+      throw ModelByYearException();
     } catch (err) {
-      throw ModelByYearFailure(message: err.toString());
+      throw ModelByYearException(message: err.toString());
     }
   }
 

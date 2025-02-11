@@ -49,8 +49,9 @@ class _FakeVehicleModels_1 extends _i1.SmartFake implements _i3.VehicleModels {
         );
 }
 
-class _FakeFipeModel_2 extends _i1.SmartFake implements _i4.FipeTableModel {
-  _FakeFipeModel_2(
+class _FakeFipeTableModel_2 extends _i1.SmartFake
+    implements _i4.FipeTableModel {
+  _FakeFipeTableModel_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -231,7 +232,7 @@ class MockFipeDatasourceImpl extends _i1.Mock
             #consultType: consultType,
           },
         ),
-        returnValue: _i6.Future<_i4.FipeTableModel>.value(_FakeFipeModel_2(
+        returnValue: _i6.Future<_i4.FipeTableModel>.value(_FakeFipeTableModel_2(
           this,
           Invocation.method(
             #getFipeTable,
@@ -249,7 +250,7 @@ class MockFipeDatasourceImpl extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i6.Future<_i4.FipeTableModel>.value(_FakeFipeModel_2(
+            _i6.Future<_i4.FipeTableModel>.value(_FakeFipeTableModel_2(
           this,
           Invocation.method(
             #getFipeTable,

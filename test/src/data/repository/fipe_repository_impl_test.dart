@@ -1,9 +1,9 @@
-import 'package:fipe_agora/src/domain/failure.dart';
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_interface.dart';
 import 'package:fipe_agora/src/data/models/brands_model.dart';
 import 'package:fipe_agora/src/data/models/vehicle_model.dart';
 import 'package:fipe_agora/src/data/models/year_model.dart';
 import 'package:fipe_agora/src/data/repository/fipe_repository_impl.dart';
+import 'package:fipe_agora/src/domain/failure.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -182,6 +182,88 @@ void main() {
               vehicleCode: 'vehicleCode',
               brandCode: 'brandCode',
               modelCode: 'modelCode');
+        },
+        throwsA(isA<Exception>()),
+      );
+    });
+  });
+
+  group('Function to get Fipe Table', () {
+    test('Should Fipe Table Model', () async {
+      when(fipeRepositoryImpl.getFipeTable(
+        tableCode: 'tableCode',
+        vehicleCode: 'vehicleCode',
+        brandCode: 'brandCode',
+        year: 'year',
+        fuelCode: 'fuelCode',
+        yearModel: 'yearModel',
+        modelCode: 'modelCode',
+        consultType: 'consultType',
+      )).thenAnswer((_) async => tFipeTableModel());
+
+      final response = await fipeDataSource.getFipeTable(
+        tableCode: 'tableCode',
+        vehicleCode: 'vehicleCode',
+        brandCode: 'brandCode',
+        year: 'year',
+        fuelCode: 'fuelCode',
+        yearModel: 'yearModel',
+        modelCode: 'modelCode',
+        consultType: 'consultType',
+      );
+
+      expect(response, tFipeTableModel());
+    });
+
+    test('Should return a empty Fipe Table Model', () async {
+      when(fipeRepositoryImpl.getFipeTable(
+        tableCode: 'tableCode',
+        vehicleCode: 'vehicleCode',
+        brandCode: 'brandCode',
+        year: 'year',
+        fuelCode: 'fuelCode',
+        yearModel: 'yearModel',
+        modelCode: 'modelCode',
+        consultType: 'consultType',
+      )).thenAnswer((_) async => tEmptyFipeTableModel());
+      final response = await fipeDataSource.getFipeTable(
+        tableCode: 'tableCode',
+        vehicleCode: 'vehicleCode',
+        brandCode: 'brandCode',
+        year: 'year',
+        fuelCode: 'fuelCode',
+        yearModel: 'yearModel',
+        modelCode: 'modelCode',
+        consultType: 'consultType',
+      );
+
+      expect(response, tEmptyFipeTableModel());
+    });
+
+    test('Should throw an exception when Fipe Table Model fails', () async {
+      when(fipeRepositoryImpl.getFipeTable(
+        tableCode: 'tableCode',
+        vehicleCode: 'vehicleCode',
+        brandCode: 'brandCode',
+        year: 'year',
+        fuelCode: 'fuelCode',
+        yearModel: 'yearModel',
+        modelCode: 'modelCode',
+        consultType: 'consultType',
+      )).thenThrow(Exception('Failed to fetch YearModel'));
+
+      expect(
+        () async {
+          fipeDataSource.getFipeTable(
+            tableCode: 'tableCode',
+            vehicleCode: 'vehicleCode',
+            brandCode: 'brandCode',
+            year: 'year',
+            fuelCode: 'fuelCode',
+            yearModel: 'yearModel',
+            modelCode: 'modelCode',
+            consultType: 'consultType',
+          );
         },
         throwsA(isA<Exception>()),
       );
