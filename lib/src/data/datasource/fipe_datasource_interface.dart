@@ -30,7 +30,7 @@ abstract class FipeDatasourceInterface {
     required String fuelCode,
     required String yearModel,
   });
-  Future<FipeModel> getFipeTable({
+  Future<FipeTableModel> getFipeTable({
     required String tableCode,
     required String vehicleCode,
     required String brandCode,

@@ -1,4 +1,6 @@
+import 'package:fipe_agora/src/presentation/controller/fipe_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ResultInfoWidget extends StatelessWidget {
   const ResultInfoWidget({
@@ -7,37 +9,38 @@ class ResultInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        ResultInfoListTile(
-          text: 'Marca',
-          suffixText: 'suffixText',
-        ),
-        ResultInfoListTile(
-          text: 'Modelo',
-          suffixText: 'suffixText',
-        ),
-        ResultInfoListTile(
-          text: 'Modelo',
-          suffixText: 'suffixText',
-        ),
-        ResultInfoListTile(
-          text: 'Mês de Referência',
-          suffixText: 'suffixText',
-        ),
-        ResultInfoListTile(
-          text: 'Mês de Referência',
-          suffixText: 'suffixText',
-        ),
-        ResultInfoListTile(
-          text: 'Combustível',
-          suffixText: 'suffixText',
-        ),
-        ResultInfoListTile(
-          text: r'Valor em $',
-          suffixText: 'suffixText',
-        ),
-      ],
+    return Consumer<FipeController>(
+      builder: (context, controller, _) {
+        final fipeTable = controller.fipeTable;
+        return Column(
+          children: [
+            ResultInfoListTile(
+              text: 'Marca',
+              suffixText: fipeTable.brand,
+            ),
+            ResultInfoListTile(
+              text: 'Modelo',
+              suffixText: fipeTable.model,
+            ),
+            ResultInfoListTile(
+              text: 'Mês de Referência',
+              suffixText: fipeTable.referenceMonth,
+            ),
+            ResultInfoListTile(
+              text: 'Combustível',
+              suffixText: fipeTable.fuel,
+            ),
+            ResultInfoListTile(
+              text: r'Valor em $',
+              suffixText: fipeTable.value,
+            ),
+            ResultInfoListTile(
+              text: 'Data da consulta',
+              suffixText: fipeTable.consultationDate,
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -56,7 +59,15 @@ class ResultInfoListTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(text),
-            Text(suffixText),
+            const SizedBox(width: 30),
+            Flexible(
+              flex: 1,
+              child: Text(
+                suffixText,
+                textAlign: TextAlign.end,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
           ],
         ),
         const Divider(),

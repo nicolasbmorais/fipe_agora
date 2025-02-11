@@ -1,13 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:fipe_agora/environment.dart';
-import 'package:fipe_agora/src/core/failure.dart';
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_interface.dart';
+import 'package:fipe_agora/src/data/exceptions/fipe_exceptions.dart';
 import 'package:fipe_agora/src/data/models/brands_model.dart';
 import 'package:fipe_agora/src/data/models/fipe_table_model.dart';
 import 'package:fipe_agora/src/data/models/model_by_year_model.dart';
 import 'package:fipe_agora/src/data/models/reference_table_model.dart';
 import 'package:fipe_agora/src/data/models/vehicle_model.dart';
 import 'package:fipe_agora/src/data/models/year_model.dart';
+import 'package:fipe_agora/src/domain/failure.dart';
 
 class FipeDatasourceImpl implements FipeDatasourceInterface {
   final Dio dio;
@@ -43,20 +44,28 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
     required String vehicleCode,
   }) async {
     try {
-      final response = await dio.post('${Environment.baseURL}ConsultarMarcas');
+      final response = await dio.post(
+        '${Environment.baseURL}ConsultarMarcas',
+        data: {
+          "codigoTabelaReferencia": tableCode,
+          "codigoTipoVeiculo": vehicleCode,
+        },
+      );
 
       if (response.statusCode != 200 || response.data == null) {
-        throw BrandsFailure();
+        throw BrandsException();
       }
 
       return response.data is List
           ? List<BrandModel>.from(
               response.data.map((item) => BrandModel.fromJson(item)))
           : <BrandModel>[];
-    } on DioException catch (_) {
-      throw BrandsFailure();
+    } on DioException catch (error) {
+      throw BrandsException(
+        message: error.response?.data["data"][0]['message'],
+      );
     } catch (err) {
-      throw BrandsFailure(error: err.toString());
+      throw BrandsException(message: err.toString());
     }
   }
 
@@ -67,17 +76,22 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
     required String brandCode,
   }) async {
     try {
-      final response = await dio.post('${Environment.baseURL}ConsultarModelos');
+      final response =
+          await dio.post('${Environment.baseURL}ConsultarModelos', data: {
+        "codigoTabelaReferencia": tableCode,
+        "codigoTipoVeiculo": vehicleCode,
+        "codigoMarca": brandCode,
+      });
 
       if (response.statusCode != 200 || response.data == null) {
-        throw VehicleModelFailure();
+        throw VehicleModelsException();
       }
 
       return VehicleModels.fromJson(response.data);
     } on DioException catch (_) {
-      throw VehicleModelFailure();
+      throw VehicleModelsException();
     } catch (err) {
-      throw VehicleModelFailure(error: err.toString());
+      throw VehicleModelsException(message: err.toString());
     }
   }
 
@@ -90,10 +104,15 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
   }) async {
     try {
       final response =
-          await dio.post('${Environment.baseURL}ConsultarAnoModelo');
+          await dio.post('${Environment.baseURL}ConsultarAnoModelo', data: {
+        "codigoTabelaReferencia": tableCode,
+        "codigoTipoVeiculo": vehicleCode,
+        "codigoMarca": brandCode,
+        "codigoModelo": modelCode,
+      });
 
       if (response.statusCode != 200 || response.data == null) {
-        throw YearModelFailure();
+        throw YearModelException();
       }
 
       return response.data is List
@@ -101,9 +120,9 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
               response.data.map((item) => YearModel.fromJson(item)))
           : <YearModel>[];
     } on DioException catch (_) {
-      throw YearModelFailure();
+      throw YearModelException();
     } catch (err) {
-      throw YearModelFailure(error: err.toString());
+      throw YearModelException(message: err.toString());
     }
   }
 
@@ -131,12 +150,12 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
     } on DioException catch (_) {
       throw ModelByYearFailure();
     } catch (err) {
-      throw ModelByYearFailure(error: err.toString());
+      throw ModelByYearFailure(message: err.toString());
     }
   }
 
   @override
-  Future<FipeModel> getFipeTable({
+  Future<FipeTableModel> getFipeTable({
     required String tableCode,
     required String vehicleCode,
     required String brandCode,
@@ -147,18 +166,28 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
     required String consultType,
   }) async {
     try {
-      final response = await dio
-          .post('${Environment.baseURL}ConsultarValorComTodosParametros');
+      final response = await dio.post(
+          '${Environment.baseURL}ConsultarValorComTodosParametros',
+          data: {
+            "codigoTabelaReferencia": tableCode,
+            "codigoTipoVeiculo": vehicleCode,
+            "codigoMarca": brandCode,
+            "ano": year,
+            "codigoTipoCombustivel": fuelCode,
+            "anoModelo": yearModel,
+            "codigoModelo": modelCode,
+            "tipoConsulta": consultType,
+          });
 
       if (response.statusCode != 200 || response.data == null) {
-        throw FipeFailure();
+        throw FipeTableException();
       }
 
-      return FipeModel.fromJson(response.data);
+      return FipeTableModel.fromJson(response.data);
     } on DioException catch (_) {
-      throw FipeFailure();
+      throw FipeTableException();
     } catch (err) {
-      throw FipeFailure(error: err.toString());
+      throw FipeTableException(message: err.toString());
     }
   }
 }

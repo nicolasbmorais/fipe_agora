@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:fipe_agora/src/common/base_controller.dart';
 import 'package:fipe_agora/src/common/status.dart';
 import 'package:fipe_agora/src/core/usecase.dart';
@@ -7,12 +8,23 @@ import 'package:fipe_agora/src/domain/entities/model_by_year_entity.dart';
 import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart';
 import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
 import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
+import 'package:fipe_agora/src/domain/failure.dart';
 import 'package:fipe_agora/src/domain/usecase/get_brands_usecase.dart';
-import 'package:fipe_agora/src/domain/usecase/get_car_models_usecase.dart';
 import 'package:fipe_agora/src/domain/usecase/get_fipe_table_usecase.dart';
 import 'package:fipe_agora/src/domain/usecase/get_model_by_year_usecase.dart';
 import 'package:fipe_agora/src/domain/usecase/get_reference_table_usecase.dart';
+import 'package:fipe_agora/src/domain/usecase/get_vehicle_models_usecase.dart';
 import 'package:fipe_agora/src/domain/usecase/get_yearmodel_usecase.dart';
+
+class VehicleType extends Equatable {
+  final String name;
+  final int id;
+
+  const VehicleType({required this.name, required this.id});
+
+  @override
+  List<Object?> get props => [name, id];
+}
 
 class FipeController extends BaseController {
   final GetReferenceTableUsecase _getReferenceTableUsecase;
@@ -34,6 +46,16 @@ class FipeController extends BaseController {
         _getFipeTableUsecase = getFipeTableUsecase,
         _getYearModelUsecase = getYearModelUsecase;
 
+  final List<VehicleType> categories = [
+    const VehicleType(name: 'Carros', id: 1),
+    const VehicleType(name: 'Motos', id: 2),
+    const VehicleType(name: 'Caminhões', id: 3),
+  ];
+
+  VehicleType selectedCategory = const VehicleType(name: 'Carros', id: 1);
+
+  String _vehicleCodeType = '1';
+
   List<ReferenceTableEntity> referenceTableList = List.empty(growable: true);
   ReferenceTableEntity referenceTable = ReferenceTableEntity.empty();
 
@@ -41,6 +63,7 @@ class FipeController extends BaseController {
   BrandEntity brandEntity = BrandEntity.empty();
 
   VehicleModelsEntity vehicleModel = VehicleModelsEntity.empty();
+  ModelEntity modelEntity = ModelEntity.empty();
 
   List<YearModelEntity> yearModelList = List.empty(growable: true);
   YearModelEntity yearModelEntity = YearModelEntity.empty();
@@ -48,7 +71,32 @@ class FipeController extends BaseController {
   List<ModelByYearEntity> modelByYearList = List.empty(growable: true);
   ModelByYearEntity modelByYearEntity = ModelByYearEntity.empty();
 
-  FipeTableEntity fipeTable = FipeTableEntity.empty();
+  FipeTableEntity _fipeTable = FipeTableEntity.empty();
+  FipeTableEntity get fipeTable => _fipeTable;
+
+  String _errorMessage = '';
+  String get errorMessage => _errorMessage;
+
+  reset() {
+    brandEntity = BrandEntity.empty();
+    modelEntity = ModelEntity.empty();
+    yearModelEntity = YearModelEntity.empty();
+    modelByYearEntity = ModelByYearEntity.empty();
+    _fipeTable = FipeTableEntity.empty();
+    const VehicleType(name: 'Carros', id: 1);
+    notifyListeners();
+  }
+
+  void selectCategory(VehicleType value) {
+    selectedCategory = value;
+    _vehicleCodeType = value.id.toString();
+    notifyListeners();
+  }
+
+  void selectVehicleType(String type) {
+    _vehicleCodeType = type;
+    notifyListeners();
+  }
 
   Future<void> getReferenceTable() async {
     setStatus(Status.loading);
@@ -64,18 +112,20 @@ class FipeController extends BaseController {
   }
 
   Future<void> getBrand(ReferenceTableEntity item) async {
-    referenceTable = item;
     setStatus(Status.loading);
+    referenceTable = item;
     try {
       brandList.clear();
       brandList.addAll(await _getBrandsUsecase.call(
         GetBrandParams(
-            tableCode: referenceTable.codigo.toString(),
-            vehicleCode: referenceTable.mes),
+          tableCode: referenceTable.codigo.toString(),
+          vehicleCode: _vehicleCodeType,
+        ),
       ));
 
       setStatus(Status.success);
-    } on Exception catch (_) {
+    } on BrandsFailure catch (error) {
+      _errorMessage = error.message ?? 'Ocorreu um erro. Tente novamente';
       setStatus(Status.error);
     }
   }
@@ -86,56 +136,59 @@ class FipeController extends BaseController {
     try {
       vehicleModel = await _getVehicleModelsUsecase.call(GetVehicleModelsParams(
         tableCode: referenceTable.codigo.toString(),
-        vehicleCode: '1', //TODO: pegar dos 3 botoes de tipo de veiculo
+        vehicleCode: _vehicleCodeType,
         brandCode: brandEntity.value,
       ));
 
       setStatus(Status.success);
-    } on Exception catch (_) {
+    } on VehicleModelFailure catch (error) {
+      _errorMessage = error.message ?? 'Ocorreu um erro. Tente novamente';
       setStatus(Status.error);
     }
   }
 
-  // Future<void> getYearModel(VehicleModels item) async {
-  //   vehicleModel = item;
-  //   setStatus(Status.loading);
-  //   try {
-  //     yearModelList.clear();
-  //     yearModelList.addAll(await _getYearModelUsecase.call(
-  //       GetYearModelParams(
-  //         tableCode: referenceTable.codigo.toString(),
-  //         vehicleCode: '1', //TODO: pegar dos 3 botoes de tipo de veiculo
-  //         brandCode: brandEntity.value,
-  //         modelCode: vehicleModel.value.toString(), //TODO: esta errado
-  //       ),
-  //     ));
+  Future<void> getYearModel(ModelEntity item) async {
+    modelEntity = item;
+    setStatus(Status.loading);
+    try {
+      yearModelList.clear();
+      yearModelList.addAll(await _getYearModelUsecase.call(
+        GetYearModelParams(
+          tableCode: referenceTable.codigo.toString(),
+          vehicleCode: _vehicleCodeType,
+          brandCode: brandEntity.value,
+          modelCode: modelEntity.value.toString(),
+        ),
+      ));
 
-  //     setStatus(Status.success);
-  //   } on Exception catch (_) {
-  //     setStatus(Status.error);
-  //   }
-  // }
+      setStatus(Status.success);
+    } on YearModelFailure catch (error) {
+      _errorMessage = error.message ?? 'Ocorreu um erro. Tente novamente';
+      setStatus(Status.error);
+    }
+  }
 
-  // Future<void> getFipeTable(VehicleModels item) async {
-  //   vehicleModel = item;
-  //   setStatus(Status.loading);
-  //   try {
-  //     fipeTable = await _getFipeTableUsecase.call(
-  //       GetFipeParams(
-  //         tableCode: referenceTable.codigo.toString(),
-  //         vehicleCode: '1', //TODO: pegar dos 3 botoes de tipo de veiculo
-  //         brandCode: brandEntity.value,
-  //         modelCode: vehicleModel.value.toString(),
-  //         year: yearModelEntity.value,
-  //         fuelCode: vehicleModel.value.toString(),
-  //         yearModel: yearModelEntity.value,
-  //         consultType: "tradicional",
-  //       ),
-  //     );
+  Future<void> getFipeTable(YearModelEntity item) async {
+    yearModelEntity = item;
+    setStatus(Status.loading);
+    try {
+      _fipeTable = await _getFipeTableUsecase.call(
+        GetFipeParams(
+          tableCode: referenceTable.codigo.toString(),
+          vehicleCode: _vehicleCodeType,
+          brandCode: brandEntity.value,
+          year: yearModelEntity.value,
+          fuelCode: yearModelEntity.value.substring(5),
+          yearModel: yearModelEntity.value.substring(0, 4),
+          modelCode: modelEntity.value.toString(),
+          consultType: "tradicional",
+        ),
+      );
 
-  //     setStatus(Status.success);
-  //   } on Exception catch (_) {
-  //     setStatus(Status.error);
-  //   }
-  // }
+      setStatus(Status.success);
+    } on FipeTableFailure catch (error) {
+      _errorMessage = error.message ?? 'Ocorreu um erro. Tente novamente';
+      setStatus(Status.error);
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:fipe_agora/src/domain/failure.dart';
 import 'package:fipe_agora/src/core/usecase.dart';
 import 'package:fipe_agora/src/domain/entities/brand_entity.dart';
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart';
@@ -10,10 +11,14 @@ class GetBrandsUsecase extends Usecase<List<BrandEntity>, GetBrandParams> {
 
   @override
   Future<List<BrandEntity>> call(GetBrandParams params) async {
-    return await repository.getBrands(
-      tableCode: params.tableCode,
-      vehicleCode: params.vehicleCode,
-    );
+    try {
+      return await repository.getBrands(
+        tableCode: params.tableCode,
+        vehicleCode: params.vehicleCode,
+      );
+    } on Exception catch (e) {
+      throw BrandsFailure(message: e.toString());
+    }
   }
 }
 

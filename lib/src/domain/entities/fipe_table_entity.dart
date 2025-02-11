@@ -41,6 +41,19 @@ class FipeTableEntity extends Equatable {
         consultationDate: '',
       );
 
+  bool get isEmpty =>
+      value.isEmpty &&
+      brand.isEmpty &&
+      model.isEmpty &&
+      modelYear == 0 &&
+      fuel.isEmpty &&
+      fipeCode.isEmpty &&
+      referenceMonth.isEmpty &&
+      authentication.isEmpty &&
+      vehicleType == 0 &&
+      fuelAcronym.isEmpty &&
+      consultationDate.isEmpty;
+
   @override
   List<Object?> get props => [
         value,

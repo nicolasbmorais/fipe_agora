@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:fipe_agora/src/core/failure.dart';
+import 'package:fipe_agora/src/domain/failure.dart';
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

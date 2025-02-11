@@ -1,9 +1,11 @@
 import 'package:fipe_agora/src/data/models/brands_model.dart';
+import 'package:fipe_agora/src/data/models/fipe_table_model.dart';
 import 'package:fipe_agora/src/data/models/model_by_year_model.dart';
 import 'package:fipe_agora/src/data/models/reference_table_model.dart';
 import 'package:fipe_agora/src/data/models/vehicle_model.dart';
 import 'package:fipe_agora/src/data/models/year_model.dart';
 import 'package:fipe_agora/src/domain/entities/brand_entity.dart';
+import 'package:fipe_agora/src/domain/entities/fipe_table_entity.dart';
 import 'package:fipe_agora/src/domain/entities/model_by_year_entity.dart';
 import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart';
 import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
@@ -67,6 +69,7 @@ List<ModelByYearEntity> tModelByYearEntityList() => [
         value: "4403",
       ),
     ];
+
 List<ModelByYearModel> tModelByYearModelList() => [
       const ModelByYearModel(
         label: "AZERA 3.0 V6 24V 4p Aut.",
@@ -77,3 +80,31 @@ List<ModelByYearModel> tModelByYearModelList() => [
         value: "4403",
       ),
     ];
+
+FipeTableEntity tFipeTableEntity() => const FipeTableEntity(
+      value: r"R$ 76.291,00",
+      brand: "BMW",
+      model: "116iA 1.6 TB 16V 136cv 5p",
+      modelYear: 2015,
+      fuel: "Gasolina",
+      fipeCode: "009171-5",
+      referenceMonth: "fevereiro de 2025 ",
+      authentication: "75tw7085y1vt",
+      vehicleType: 1,
+      fuelAcronym: 'G',
+      consultationDate: "terça-feira, 11 de fevereiro de 2025 16:16",
+    );
+
+FipeTableModel tFipeTableModel() => const FipeTableModel(
+      value: r"R$ 76.291,00",
+      brand: "BMW",
+      model: "116iA 1.6 TB 16V 136cv 5p",
+      modelYear: 2015,
+      fuel: "Gasolina",
+      fipeCode: "009171-5",
+      referenceMonth: "fevereiro de 2025 ",
+      authentication: "75tw7085y1vt",
+      vehicleType: 1,
+      fuelAcronym: 'G',
+      consultationDate: "terça-feira, 11 de fevereiro de 2025 16:16",
+    );

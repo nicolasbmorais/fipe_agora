@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:fipe_agora/src/core/usecase.dart';
 import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
+import 'package:fipe_agora/src/domain/failure.dart';
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart';
 
 class GetYearModelUsecase
@@ -11,12 +12,16 @@ class GetYearModelUsecase
 
   @override
   Future<List<YearModelEntity>> call(GetYearModelParams params) async {
-    return await repository.getYearModel(
-      tableCode: params.tableCode,
-      vehicleCode: params.vehicleCode,
-      brandCode: params.brandCode,
-      modelCode: params.modelCode,
-    );
+    try {
+      return await repository.getYearModel(
+        tableCode: params.tableCode,
+        vehicleCode: params.vehicleCode,
+        brandCode: params.brandCode,
+        modelCode: params.modelCode,
+      );
+    } on Exception catch (e) {
+      throw YearModelFailure(message: e.toString());
+    }
   }
 }
 

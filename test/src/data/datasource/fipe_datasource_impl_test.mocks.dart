@@ -49,7 +49,7 @@ class _FakeVehicleModels_1 extends _i1.SmartFake implements _i3.VehicleModels {
         );
 }
 
-class _FakeFipeModel_2 extends _i1.SmartFake implements _i4.FipeModel {
+class _FakeFipeModel_2 extends _i1.SmartFake implements _i4.FipeTableModel {
   _FakeFipeModel_2(
     Object parent,
     Invocation parentInvocation,
@@ -206,7 +206,7 @@ class MockFipeDatasourceImpl extends _i1.Mock
       ) as _i6.Future<List<_i10.ModelByYearModel>>);
 
   @override
-  _i6.Future<_i4.FipeModel> getFipeTable({
+  _i6.Future<_i4.FipeTableModel> getFipeTable({
     required String? tableCode,
     required String? vehicleCode,
     required String? brandCode,
@@ -231,7 +231,7 @@ class MockFipeDatasourceImpl extends _i1.Mock
             #consultType: consultType,
           },
         ),
-        returnValue: _i6.Future<_i4.FipeModel>.value(_FakeFipeModel_2(
+        returnValue: _i6.Future<_i4.FipeTableModel>.value(_FakeFipeModel_2(
           this,
           Invocation.method(
             #getFipeTable,
@@ -249,7 +249,7 @@ class MockFipeDatasourceImpl extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i6.Future<_i4.FipeModel>.value(_FakeFipeModel_2(
+            _i6.Future<_i4.FipeTableModel>.value(_FakeFipeModel_2(
           this,
           Invocation.method(
             #getFipeTable,
@@ -266,5 +266,5 @@ class MockFipeDatasourceImpl extends _i1.Mock
             },
           ),
         )),
-      ) as _i6.Future<_i4.FipeModel>);
+      ) as _i6.Future<_i4.FipeTableModel>);
 }

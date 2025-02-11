@@ -1,5 +1,5 @@
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart';
-import 'package:fipe_agora/src/domain/usecase/get_car_models_usecase.dart';
+import 'package:fipe_agora/src/domain/usecase/get_vehicle_models_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

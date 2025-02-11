@@ -7,7 +7,7 @@ class YearModel extends YearModelEntity {
   });
 
   factory YearModel.fromJson(Map<String, dynamic> json) => YearModel(
-        label: json["Label"],
-        value: json["Value"],
+        label: json["Label"] ?? '',
+        value: json["Value"] ?? '',
       );
 }

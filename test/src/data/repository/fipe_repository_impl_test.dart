@@ -1,4 +1,4 @@
-import 'package:fipe_agora/src/core/failure.dart';
+import 'package:fipe_agora/src/domain/failure.dart';
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_interface.dart';
 import 'package:fipe_agora/src/data/models/brands_model.dart';
 import 'package:fipe_agora/src/data/models/vehicle_model.dart';

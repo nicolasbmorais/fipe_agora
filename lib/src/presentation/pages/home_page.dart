@@ -29,43 +29,88 @@ class _HomePageState extends State<HomePage> {
         title: const Text(
           'FIPE',
           style: TextStyle(
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Tipo de Veículo',
-              style: TextStyle(fontWeight: FontWeight.w700),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Consumer<FipeController>(builder: (context, controller, _) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Consumer<FipeController>(builder: (context, controller, _) {
-                  return OutlinedButton(
-                    onPressed: () {},
-                    child: const Text('Carros -1'),
-                  );
-                }),
-                OutlinedButton(
-                  onPressed: () {},
-                  child: const Text('Motos - 2'),
+                const Text(
+                  'Tipo de Veículo',
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                OutlinedButton(
-                  onPressed: () {},
-                  child: const Text('Camin-3'),
+                Row(
+                  children: List.generate(
+                    controller.categories.length,
+                    (index) {
+                      final category = controller.categories[index];
+                      final isSelected =
+                          controller.selectedCategory == category;
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: ChoiceChip(
+                          label: Text(
+                            category.name,
+                            style: TextStyle(
+                              color: isSelected
+                                  ? Colors.blue.shade900
+                                  : Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          selected: isSelected,
+                          onSelected: (value) =>
+                              controller.selectCategory(category),
+                          selectedColor: Colors.blue.shade50,
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            side: BorderSide(
+                              color: isSelected
+                                  ? Colors.blue.shade900
+                                  : Colors.grey.shade400,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
+                const DropDownItens(),
+                const SizedBox(height: 24.0),
+                if (!controller.fipeTable.isEmpty) ...[
+                  const ResultInfoWidget(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 24),
+                    child: Center(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton(
+                          style: ButtonStyle(
+                              shape: WidgetStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              side: BorderSide(
+                                color: Colors.grey.shade800,
+                              ),
+                            ),
+                          )),
+                          onPressed: () => controller.reset(),
+                          child: const Text('Limpar dados'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ]
               ],
-            ),
-            const DropDownItens(),
-            const SizedBox(height: 24.0),
-            const ResultInfoWidget(),
-          ],
+            );
+          }),
         ),
       ),
     );

@@ -1,11 +1,12 @@
-import 'package:fipe_agora/src/core/failure.dart';
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_interface.dart';
+import 'package:fipe_agora/src/data/exceptions/fipe_exceptions.dart';
 import 'package:fipe_agora/src/domain/entities/brand_entity.dart';
-import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
 import 'package:fipe_agora/src/domain/entities/fipe_table_entity.dart';
 import 'package:fipe_agora/src/domain/entities/model_by_year_entity.dart';
 import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart';
+import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
 import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
+import 'package:fipe_agora/src/domain/failure.dart';
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart';
 
 class FipeRepositoryImpl implements FipeRepositoryInterface {
@@ -31,8 +32,8 @@ class FipeRepositoryImpl implements FipeRepositoryInterface {
         tableCode: tableCode,
         vehicleCode: vehicleCode,
       );
-    } on Failure catch (_) {
-      throw ApiFailure();
+    } on BrandsException catch (e) {
+      throw Exception(e.message);
     }
   }
 
@@ -48,8 +49,8 @@ class FipeRepositoryImpl implements FipeRepositoryInterface {
         vehicleCode: vehicleCode,
         brandCode: brandCode,
       );
-    } on Failure catch (_) {
-      throw ApiFailure();
+    } on VehicleModelsException catch (e) {
+      throw Exception(e.message);
     }
   }
 
@@ -67,8 +68,8 @@ class FipeRepositoryImpl implements FipeRepositoryInterface {
         brandCode: brandCode,
         modelCode: modelCode,
       );
-    } on Failure catch (_) {
-      throw ApiFailure();
+    } on YearModelException catch (e) {
+      throw Exception(e);
     }
   }
 
@@ -117,8 +118,8 @@ class FipeRepositoryImpl implements FipeRepositoryInterface {
         fuelCode: fuelCode,
         yearModel: yearModel,
       );
-    } on Failure catch (_) {
-      throw ApiFailure();
+    } on FipeTableException catch (e) {
+      throw Exception(e);
     }
   }
 }

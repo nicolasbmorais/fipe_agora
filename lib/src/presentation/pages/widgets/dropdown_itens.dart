@@ -1,6 +1,7 @@
 import 'package:fipe_agora/src/domain/entities/brand_entity.dart';
-import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
 import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart';
+import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
+import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
 import 'package:fipe_agora/src/presentation/controller/fipe_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +24,7 @@ class _DropDownItensState extends State<DropDownItens> {
         return Column(
           children: [
             const SizedBox(height: 20),
-            DropDownMenuWidget<ReferenceTableEntity>(
+            _DropDownMenuWidget<ReferenceTableEntity>(
               title: 'Tabela de Referência',
               isLoading: controller.isLoading,
               enabled: controller.referenceTableList.isNotEmpty &&
@@ -36,41 +37,41 @@ class _DropDownItensState extends State<DropDownItens> {
               },
             ),
             const SizedBox(height: 20),
-            DropDownMenuWidget<BrandEntity>(
+            _DropDownMenuWidget<BrandEntity>(
               title: 'Marcas',
               isLoading: controller.isLoading,
               enabled: controller.brandList.isNotEmpty && !controller.isLoading,
               itemList: controller.brandList,
               selectedItem: controller.brandEntity,
-              itemLabel: (value) => value.value,
+              itemLabel: (value) => value.label,
               onSelect: (value) {
                 controller.getVehicleModel(value!);
               },
             ),
             const SizedBox(height: 20),
-            // DropDownMenuWidget<VehicleModels>(
-            //   title: 'Modelos',
-            //   isLoading: controller.isLoading,
-            //   enabled: controller.vehicleModelList.isNotEmpty &&
-            //       !controller.isLoading,
-            //   itemList: controller.vehicleModelList,
-            //   selectedItem: controller.vehicleModel,
-            //   itemLabel: (value) => value.value.toString(),
-            //   onSelect: (value) {
-            //     controller.getYearModel(value!);
-            //   },
-            // ),
+            _DropDownMenuWidget<ModelEntity>(
+              title: 'Modelo',
+              isLoading: controller.isLoading,
+              enabled: controller.vehicleModel.model.isNotEmpty &&
+                  !controller.isLoading,
+              itemList: controller.vehicleModel.model,
+              selectedItem: controller.modelEntity,
+              itemLabel: (value) => value.label,
+              onSelect: (value) {
+                controller.getYearModel(value!);
+              },
+            ),
             const SizedBox(height: 20),
-            DropDownMenuWidget<ReferenceTableEntity>(
+            _DropDownMenuWidget<YearModelEntity>(
               title: 'Ano',
               isLoading: controller.isLoading,
-              enabled: controller.referenceTableList.isNotEmpty &&
+              enabled: controller.vehicleModel.year.isNotEmpty &&
                   !controller.isLoading,
-              itemList: controller.referenceTableList,
-              selectedItem: controller.referenceTable,
-              itemLabel: (value) => value.mes,
+              itemList: controller.yearModelList,
+              selectedItem: controller.yearModelEntity,
+              itemLabel: (value) => value.label,
               onSelect: (value) {
-                // controller.selectReferenceTable(value!);
+                controller.getFipeTable(value!);
               },
             ),
           ],
@@ -80,7 +81,7 @@ class _DropDownItensState extends State<DropDownItens> {
   }
 }
 
-class DropDownMenuWidget<T> extends StatelessWidget {
+class _DropDownMenuWidget<T> extends StatefulWidget {
   final String title;
   final ValueChanged<T?> onSelect;
   final bool enabled;
@@ -89,7 +90,7 @@ class DropDownMenuWidget<T> extends StatelessWidget {
   final T? selectedItem;
   final String Function(T) itemLabel;
 
-  const DropDownMenuWidget({
+  const _DropDownMenuWidget({
     super.key,
     required this.title,
     required this.onSelect,
@@ -101,20 +102,31 @@ class DropDownMenuWidget<T> extends StatelessWidget {
   });
 
   @override
+  State<_DropDownMenuWidget<T>> createState() => _DropDownMenuWidgetState<T>();
+}
+
+class _DropDownMenuWidgetState<T> extends State<_DropDownMenuWidget<T>> {
+  @override
   Widget build(BuildContext context) {
+    final TextEditingController textController = TextEditingController();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.w700),
+          widget.title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 5),
         Skeletonizer(
-          enabled: isLoading,
+          enabled: widget.isLoading,
           child: DropdownMenu<T>(
-            enabled: enabled,
+            hintText: 'Selecione um valor',
+            enableSearch: true,
+            requestFocusOnTap: true,
+            controller: textController,
+            enabled: widget.enabled,
             width: double.infinity,
+            initialSelection: widget.selectedItem,
             menuHeight: 300,
             menuStyle: const MenuStyle(
               alignment: AlignmentDirectional.bottomStart,
@@ -126,16 +138,16 @@ class DropDownMenuWidget<T> extends StatelessWidget {
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.all(Radius.circular(5)),
               ),
-              constraints: BoxConstraints.tight(const Size.fromHeight(40)),
+              constraints: BoxConstraints.tight(const Size.fromHeight(50)),
               fillColor: const Color.fromRGBO(242, 242, 242, 1),
             ),
-            dropdownMenuEntries: itemList.map((T item) {
+            dropdownMenuEntries: widget.itemList.map((T item) {
               return DropdownMenuEntry<T>(
                 value: item,
-                label: itemLabel(item),
+                label: widget.itemLabel(item),
               );
             }).toList(),
-            onSelected: onSelect,
+            onSelected: widget.onSelect,
           ),
         ),
       ],

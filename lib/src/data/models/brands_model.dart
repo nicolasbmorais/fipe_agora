@@ -7,7 +7,7 @@ class BrandModel extends BrandEntity {
   });
 
   factory BrandModel.fromJson(Map<String, dynamic> json) => BrandModel(
-        label: json["Label"],
-        value: json["Value"],
+        label: json["Label"] ?? '',
+        value: json["Value"] ?? '',
       );
 }

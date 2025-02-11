@@ -1,7 +1,7 @@
 import 'package:fipe_agora/src/domain/entities/fipe_table_entity.dart';
 
-class FipeModel extends FipeTableEntity {
-  FipeModel({
+class FipeTableModel extends FipeTableEntity {
+  const FipeTableModel({
     required super.value,
     required super.brand,
     required super.model,
@@ -15,17 +15,17 @@ class FipeModel extends FipeTableEntity {
     required super.consultationDate,
   });
 
-  factory FipeModel.fromJson(Map<String, dynamic> json) => FipeModel(
-        value: json["Valor"],
-        brand: json["Marca"],
-        model: json["Modelo"],
-        modelYear: json["AnoModelo"],
-        fuel: json["Combustivel"],
-        fipeCode: json["CodigoFipe"],
-        referenceMonth: json["MesReferencia"],
-        authentication: json["Autenticacao"],
-        vehicleType: json["TipoVeiculo"],
-        fuelAcronym: json["SiglaCombustivel"],
-        consultationDate: json["DataConsulta"],
+  factory FipeTableModel.fromJson(Map<String, dynamic> json) => FipeTableModel(
+        value: json["Valor"] ?? '',
+        brand: json["Marca"] ?? '',
+        model: json["Modelo"] ?? '',
+        modelYear: json["AnoModelo"] ?? 0,
+        fuel: json["Combustivel"] ?? '',
+        fipeCode: json["CodigoFipe"] ?? '',
+        referenceMonth: json["MesReferencia"] ?? '',
+        authentication: json["Autenticacao"] ?? '',
+        vehicleType: json["TipoVeiculo"] ?? 0,
+        fuelAcronym: json["SiglaCombustivel"] ?? '',
+        consultationDate: json["DataConsulta"] ?? '',
       );
 }
