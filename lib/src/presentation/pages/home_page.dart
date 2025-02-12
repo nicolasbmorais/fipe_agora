@@ -46,8 +46,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               const Text(
                 'Tipo de Veículo',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, color: Color(0xFFFFFFFF)),
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const VehicleButtons(),
               const DropDownItens(),
