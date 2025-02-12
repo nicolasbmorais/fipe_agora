@@ -6,7 +6,7 @@ import 'package:fipe_agora/src/domain/entities/model_by_year_entity.dart';
 import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart';
 import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
 import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
-import 'package:fipe_agora/src/domain/failure.dart';
+import 'package:fipe_agora/src/domain/failure/failure.dart';
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart';
 
 class FipeRepositoryImpl implements FipeRepositoryInterface {

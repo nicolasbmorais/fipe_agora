@@ -3,7 +3,7 @@ import 'package:fipe_agora/environment.dart';
 import 'package:fipe_agora/src/data/datasource/fipe_datasource_interface.dart';
 import 'package:fipe_agora/src/data/exceptions/fipe_exceptions.dart';
 import 'package:fipe_agora/src/data/models/models.dart';
-import 'package:fipe_agora/src/domain/failure.dart';
+import 'package:fipe_agora/src/domain/failure/failure.dart';
 
 class FipeDatasourceImpl implements FipeDatasourceInterface {
   final Dio dio;

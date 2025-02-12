@@ -27,14 +27,16 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.white,
         title: const Text(
-          'FIPE',
+          'TABELA FIPE',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
         ),
+        leading: Image.asset('assets/images/fipe_logo.png'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -44,7 +46,8 @@ class _HomePageState extends State<HomePage> {
             children: [
               const Text(
                 'Tipo de Veículo',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Color(0xFFFFFFFF)),
               ),
               const VehicleButtons(),
               const DropDownItens(),

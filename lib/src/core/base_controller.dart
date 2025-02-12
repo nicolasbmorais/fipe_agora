@@ -1,4 +1,4 @@
-import 'package:fipe_agora/src/common/status.dart';
+import 'package:fipe_agora/src/core/status.dart';
 import 'package:flutter/foundation.dart';
 
 class BaseController extends ChangeNotifier {

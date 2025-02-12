@@ -3,7 +3,7 @@ import 'package:fipe_agora/src/data/models/brands_model.dart';
 import 'package:fipe_agora/src/data/models/vehicle_model.dart';
 import 'package:fipe_agora/src/data/models/year_model.dart';
 import 'package:fipe_agora/src/data/repository/fipe_repository_impl.dart';
-import 'package:fipe_agora/src/domain/failure.dart';
+import 'package:fipe_agora/src/domain/failure/failure.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

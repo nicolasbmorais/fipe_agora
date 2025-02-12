@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:fipe_agora/src/core/usecase.dart';
 import 'package:fipe_agora/src/domain/entities/fipe_table_entity.dart';
-import 'package:fipe_agora/src/domain/failure.dart';
+import 'package:fipe_agora/src/domain/failure/failure.dart';
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart';
 
 class GetFipeTableUsecase extends Usecase<FipeTableEntity, GetFipeParams> {
