@@ -1,3 +1,4 @@
+import 'package:fipe_agora/src/core/typography.dart';
 import 'package:fipe_agora/src/presentation/controller/fipe_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,13 +29,7 @@ class ClearButton extends StatelessWidget {
               ),
             )),
             onPressed: () => context.read<FipeController>().reset(),
-            child: const Text(
-              'Limpar dados',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('Limpar dados', style: CustomTypography.bold),
           ),
         ),
       ),

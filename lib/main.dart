@@ -25,11 +25,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          useMaterial3: true,
-          extensions: const [
-          SkeletonizerConfigData(),
-        ]
-        ),
+            useMaterial3: true,
+            fontFamily: 'Rubik',
+            extensions: const [
+              SkeletonizerConfigData(),
+            ]),
         home: const HomePage(),
       ),
     );

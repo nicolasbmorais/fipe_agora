@@ -25,8 +25,10 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
               respData.map((e) => ReferenceTableModel.fromJson(e)),
             )
           : [];
-    } on DioException catch (_) {
-      throw ReferenceTableException();
+    } on DioException catch (error) {
+      throw ReferenceTableException(
+        message: error.response?.data["data"][0]['message'],
+      );
     } catch (err) {
       throw ReferenceTableException();
     }

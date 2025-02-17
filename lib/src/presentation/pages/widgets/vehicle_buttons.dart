@@ -1,3 +1,4 @@
+import 'package:fipe_agora/src/core/typography.dart';
 import 'package:fipe_agora/src/presentation/controller/fipe_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,7 @@ class VehicleButtons extends StatelessWidget {
               child: ChoiceChip(
                 label: Text(
                   category.name,
-                  style: TextStyle(
+                  style: CustomTypography.bold.copyWith(
                     color: isSelected ? Colors.blue.shade900 : Colors.black,
                     fontWeight: FontWeight.bold,
                   ),

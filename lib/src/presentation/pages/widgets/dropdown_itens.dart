@@ -1,3 +1,4 @@
+import 'package:fipe_agora/src/core/typography.dart';
 import 'package:fipe_agora/src/domain/entities/brand_entity.dart';
 import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart';
 import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
@@ -61,6 +62,7 @@ class _DropDownItensState extends State<DropDownItens> {
             ),
             _DropDownMenuWidget<YearModelEntity>(
               title: 'Ano',
+              enableSearch: false,
               isLoading: controller.isLoading,
               enabled: controller.vehicleModel.year.isNotEmpty &&
                   !controller.isLoading,
@@ -83,6 +85,7 @@ class _DropDownMenuWidget<T> extends StatefulWidget {
   final ValueChanged<T?> onSelect;
   final bool enabled;
   final bool isLoading;
+  final bool enableSearch;
   final List<T> itemList;
   final T? selectedItem;
   final String Function(T) itemLabel;
@@ -95,6 +98,7 @@ class _DropDownMenuWidget<T> extends StatefulWidget {
     required this.itemList,
     required this.itemLabel,
     this.isLoading = false,
+    this.enableSearch = true,
     this.selectedItem,
   });
 
@@ -105,22 +109,17 @@ class _DropDownMenuWidget<T> extends StatefulWidget {
 class _DropDownMenuWidgetState<T> extends State<_DropDownMenuWidget<T>> {
   @override
   Widget build(BuildContext context) {
-    final TextEditingController textController = TextEditingController();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.title,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
+        Text(widget.title, style: CustomTypography.bold),
         const SizedBox(height: 5),
         Skeletonizer(
           enabled: widget.isLoading,
           child: DropdownMenu<T>(
             hintText: 'Selecione um valor',
-            enableSearch: true,
-            requestFocusOnTap: true,
-            controller: textController,
+            enableSearch: widget.enableSearch,
+            requestFocusOnTap: widget.enableSearch,
             enabled: widget.enabled,
             width: double.infinity,
             initialSelection: widget.selectedItem,

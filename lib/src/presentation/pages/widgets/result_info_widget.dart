@@ -1,3 +1,4 @@
+import 'package:fipe_agora/src/core/typography.dart';
 import 'package:fipe_agora/src/presentation/controller/fipe_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +32,7 @@ class ResultInfoWidget extends StatelessWidget {
               suffixText: fipeTable.fuel,
             ),
             _ResultInfoListTile(
-              text: r'Valor em $',
+              text: r'Valor em R$',
               suffixText: fipeTable.value,
             ),
             _ResultInfoListTile(
@@ -57,14 +58,14 @@ class _ResultInfoListTile extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(text),
+            Text(text, style: CustomTypography.regular),
             const SizedBox(width: 30),
             Flexible(
               flex: 1,
               child: Text(
                 suffixText,
                 textAlign: TextAlign.end,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: CustomTypography.bold,
               ),
             ),
           ],

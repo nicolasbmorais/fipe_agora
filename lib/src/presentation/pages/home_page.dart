@@ -1,3 +1,4 @@
+import 'package:fipe_agora/src/core/typography.dart';
 import 'package:fipe_agora/src/presentation/controller/fipe_controller.dart';
 import 'package:fipe_agora/src/presentation/pages/widgets/clear_button.dart';
 import 'package:fipe_agora/src/presentation/pages/widgets/dropdown_itens.dart';
@@ -25,31 +26,27 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        forceMaterialTransparency: true,
         centerTitle: true,
         backgroundColor: Colors.white,
-        title: const Text(
-          'TABELA FIPE',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
+        title: Text('TABELA FIPE', style: CustomTypography.bold),
         leading: Image.asset('assets/images/fipe_icon.png'),
       ),
       body: SingleChildScrollView(
+        reverse: true,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Tipo de Veículo',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+              const SizedBox(height: 8.0),
+              Text('Tipo de Veículo', style: CustomTypography.bold),
               const VehicleButtons(),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 24.0),
               const DropDownItens(),
               const SizedBox(height: 24.0),
               Consumer<FipeController>(
