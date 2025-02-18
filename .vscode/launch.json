@@ -6,8 +6,8 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--dart-define=BASE_URL=https://fipe2.p.rapidapi.com/",
-                "--dart-define=API_KEY=53e9d380d7msha3584e2ff8b21d9p13a50ajsn0cfba2074d16"
+                "--dart-define=BASE_URL=https://fipe.parallelum.com.br/api/v2/",
+                "--dart-define=API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNmU0M2ZiNS01YzQ5LTRjYTgtOTI4NC03MzAwNDMyZWQ4MDAiLCJlbWFpbCI6Im5pY29sYXNicnVub21vcmFpc0Bob3RtYWlsLmNvbSIsImlhdCI6MTczOTgyNDE3Mn0.Mkay-bOnHT8p0nTNg5DpOgiKtatGikwSXk3ZSRZb-2o"
             ]
         },
         {
@@ -16,8 +16,8 @@
             "type": "dart",
             "flutterMode": "profile",
             "args": [
-                "--dart-define=BASE_URL=https://fipe2.p.rapidapi.com/",
-                "--dart-define=API_KEY=53e9d380d7msha3584e2ff8b21d9p13a50ajsn0cfba2074d16"
+                "--dart-define=BASE_URL=https://fipe.parallelum.com.br/api/v2/",
+                "--dart-define=API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNmU0M2ZiNS01YzQ5LTRjYTgtOTI4NC03MzAwNDMyZWQ4MDAiLCJlbWFpbCI6Im5pY29sYXNicnVub21vcmFpc0Bob3RtYWlsLmNvbSIsImlhdCI6MTczOTgyNDE3Mn0.Mkay-bOnHT8p0nTNg5DpOgiKtatGikwSXk3ZSRZb-2o"
             ]
         },
         {
@@ -26,8 +26,8 @@
             "type": "dart",
             "flutterMode": "release",
             "args": [
-                "--dart-define=BASE_URL=https://fipe2.p.rapidapi.com/",
-                "--dart-define=API_KEY=53e9d380d7msha3584e2ff8b21d9p13a50ajsn0cfba2074d16"
+                "--dart-define=BASE_URL=https://fipe.parallelum.com.br/api/v2/",
+                "--dart-define=API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNmU0M2ZiNS01YzQ5LTRjYTgtOTI4NC03MzAwNDMyZWQ4MDAiLCJlbWFpbCI6Im5pY29sYXNicnVub21vcmFpc0Bob3RtYWlsLmNvbSIsImlhdCI6MTczOTgyNDE3Mn0.Mkay-bOnHT8p0nTNg5DpOgiKtatGikwSXk3ZSRZb-2o"
             ]
         }
     ]

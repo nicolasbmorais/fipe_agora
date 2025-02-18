@@ -1,19 +1,19 @@
 import 'package:equatable/equatable.dart';
 
-class YearModelEntity extends Equatable {
-  final String label;
-  final String value;
+class YearByModelEntity extends Equatable {
+  final String name;
+  final String code;
 
-  const YearModelEntity({
-    required this.label,
-    required this.value,
+  const YearByModelEntity({
+    required this.name,
+    required this.code,
   });
 
-  factory YearModelEntity.empty() => const YearModelEntity(
-        label: '',
-        value: '',
+  factory YearByModelEntity.empty() => const YearByModelEntity(
+        name: '',
+        code: '',
       );
 
   @override
-  List<Object?> get props => [label, value];
+  List<Object?> get props => [name, code];
 }

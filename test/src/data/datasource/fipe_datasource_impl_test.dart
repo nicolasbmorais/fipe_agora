@@ -24,7 +24,8 @@ void main() {
   });
   group('Reference Table Test', () {
     test('Should return reference table list', () async {
-      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
+      when(dio.get(any, queryParameters: anyNamed('queryParameters')))
+          .thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 200,
@@ -38,7 +39,8 @@ void main() {
     });
 
     test('Should throws error on get reference table list', () async {
-      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
+      when(dio.get(any, queryParameters: anyNamed('queryParameters')))
+          .thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -46,7 +48,7 @@ void main() {
       });
 
       expect(
-        () => datasourceImpl.getReferenceTable(),
+        () async => datasourceImpl.getReferenceTable(),
         throwsA(isA<ReferenceTableException>()),
       );
     });
@@ -54,21 +56,21 @@ void main() {
 
   group('Brand List Test', () {
     test('Should return a brand list', () async {
-      when(dio.post(any, data: anyNamed('data')))
-          .thenAnswer((_) async => Response(
-                requestOptions: requestOptions,
-                statusCode: 200,
-                data: List.from(jsonDecode(fixture('brands.json'))),
-              ));
+      when(dio.get(any)).thenAnswer((_) async => Response(
+            requestOptions: requestOptions,
+            statusCode: 200,
+            data: List.from(jsonDecode(fixture('brands.json'))),
+          ));
 
       final result =
-          await datasourceImpl.getBrands(tableCode: '290', vehicleCode: '1');
+          await datasourceImpl.getBrands(tableCode: '290', vehicleCode: 'cars');
 
       expect(result, tBrandModelList());
     });
 
     test('Should throws error on get reference table list', () async {
-      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
+      when(dio.get(any, queryParameters: anyNamed('queryParameters')))
+          .thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -76,19 +78,20 @@ void main() {
       });
 
       expect(
-        () => datasourceImpl.getBrands(tableCode: '290', vehicleCode: '1'),
+        () async =>
+            datasourceImpl.getBrands(tableCode: '290', vehicleCode: '1'),
         throwsA(isA<BrandsException>()),
       );
     });
   });
 
-  group('Vehicle Model Test', () {
+  group('Vehicle Model List Test', () {
     test('Should return Vehicle Model', () async {
-      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
+      when(dio.get(any)).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 200,
-          data: jsonDecode(fixture('car_models.json')),
+          data: List.from(jsonDecode(fixture('car_models.json'))),
         );
       });
 
@@ -98,11 +101,12 @@ void main() {
         brandCode: 'brandCode',
       );
 
-      expect(result, tVehicleModel());
+      expect(result, tVehicleModelModelList());
     });
 
     test('Should throws error on get reference table list', () async {
-      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
+      when(dio.get(any, queryParameters: anyNamed('queryParameters')))
+          .thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -110,7 +114,7 @@ void main() {
       });
 
       expect(
-        () => datasourceImpl.getVehicleModels(
+        () async => datasourceImpl.getVehicleModels(
           tableCode: 'tableCode',
           vehicleCode: 'vehicleCode',
           brandCode: 'brandCode',
@@ -119,9 +123,9 @@ void main() {
       );
     });
   });
-  group('Year model List Test', () {
-    test('Should return year model list', () async {
-      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
+  group('Year By Model List Test', () {
+    test('Should return year by model list', () async {
+      when(dio.get(any)).thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 200,
@@ -129,18 +133,19 @@ void main() {
         );
       });
 
-      final result = await datasourceImpl.getYearModel(
+      final result = await datasourceImpl.getYearByModel(
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
         modelCode: 'modelCode',
       );
 
-      expect(result, tYearModelList());
+      expect(result, tYearByModelList());
     });
 
     test('Should throws error on get reference table list', () async {
-      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
+      when(dio.get(any, queryParameters: anyNamed('queryParameters')))
+          .thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -148,62 +153,20 @@ void main() {
       });
 
       expect(
-        () => datasourceImpl.getYearModel(
+        () async => datasourceImpl.getYearByModel(
           tableCode: 'tableCode',
           vehicleCode: 'vehicleCode',
           brandCode: 'brandCode',
           modelCode: 'modelCode',
         ),
-        throwsA(isA<YearModelException>()),
+        throwsA(isA<YearByModelException>()),
       );
     });
   });
 
-  group('Model by Year List Test', () {
-    test('Should return Model by Year list', () async {
-      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
-        return Response(
-          requestOptions: requestOptions,
-          statusCode: 200,
-          data: List.from(jsonDecode(fixture('model_by_year.json'))),
-        );
-      });
-
-      final result = await datasourceImpl.getModelByYear(
-        tableCode: 'tableCode',
-        vehicleCode: 'vehicleCode',
-        brandCode: 'brandCode',
-        year: 'year',
-        fuelCode: 'fuelCode',
-        yearModel: 'yearModel',
-      );
-
-      expect(result, tModelByYearModelList());
-    });
-
-    test('Should throws error on get Model by Year list', () async {
-      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
-        return Response(
-          requestOptions: requestOptions,
-          statusCode: 400,
-        );
-      });
-
-      expect(
-          () => datasourceImpl.getModelByYear(
-                tableCode: 'tableCode',
-                vehicleCode: 'vehicleCode',
-                brandCode: 'brandCode',
-                year: 'year',
-                fuelCode: 'fuelCode',
-                yearModel: 'yearModel',
-              ),
-          throwsA(isA<ModelByYearException>()));
-    });
-  });
   group('Fipe Table Test', () {
     test('Should return Fipe Table', () async {
-      when(dio.post(any, data: anyNamed('data')))
+      when(dio.get(any, queryParameters: anyNamed('queryParameters')))
           .thenAnswer((invocation) async {
         return Response(
           requestOptions: requestOptions,
@@ -216,18 +179,16 @@ void main() {
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
-        year: 'year',
-        fuelCode: 'fuelCode',
-        yearModel: 'yearModel',
+        yearId: 'yearId',
         modelCode: 'modelCode',
-        consultType: 'consultType',
       );
 
       expect(result, tFipeTableModel());
     });
 
     test('Should throws error on get Fipe Table', () async {
-      when(dio.post(any, data: anyNamed('data'))).thenAnswer((_) async {
+      when(dio.get(any, queryParameters: anyNamed('queryParameters')))
+          .thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 400,
@@ -235,15 +196,12 @@ void main() {
       });
 
       expect(
-          () => datasourceImpl.getFipeTable(
+          () async => datasourceImpl.getFipeTable(
                 tableCode: 'tableCode',
                 vehicleCode: 'vehicleCode',
                 brandCode: 'brandCode',
-                year: 'year',
-                fuelCode: 'fuelCode',
-                yearModel: 'yearModel',
+                yearId: 'yearId',
                 modelCode: 'modelCode',
-                consultType: 'consultType',
               ),
           throwsA(isA<FipeTableException>()));
     });

@@ -1,13 +1,18 @@
 {
-    "Valor": "R$ 76.291,00",
-    "Marca": "BMW",
-    "Modelo": "116iA 1.6 TB 16V 136cv 5p",
-    "AnoModelo": 2015,
-    "Combustivel": "Gasolina",
-    "CodigoFipe": "009171-5",
-    "MesReferencia": "fevereiro de 2025 ",
-    "Autenticacao": "75tw7085y1vt",
-    "TipoVeiculo": 1,
-    "SiglaCombustivel": "G",
-    "DataConsulta": "terça-feira, 11 de fevereiro de 2025 16:16"
+    "brand": "BMW",
+    "codeFipe": "009171-5",
+    "fuel": "Gasolina",
+    "fuelAcronym": "G",
+    "model": "116iA 1.6 TB 16V 136cv 5p",
+    "modelYear": 2015,
+    "price": "R$ 76.291,00",
+    "priceHistory": [
+        {
+            "month": "abril de 2024",
+            "price": "R$ 10.000,00",
+            "reference": "1"
+        }
+    ],
+    "referenceMonth": "fevereiro de 2025 ",
+    "vehicleType": 1
 }

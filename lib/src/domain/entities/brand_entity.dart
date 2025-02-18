@@ -1,19 +1,19 @@
 import 'package:equatable/equatable.dart';
 
 class BrandEntity extends Equatable {
-  final String label;
-  final String value;
+  final String name;
+  final String code;
 
   const BrandEntity({
-    required this.label,
-    required this.value,
+    required this.name,
+    required this.code,
   });
 
   factory BrandEntity.empty() => const BrandEntity(
-        label: '',
-        value: '',
+        name: '',
+        code: '',
       );
 
   @override
-  List<Object?> get props => [label, value];
+  List<Object?> get props => [name, code];
 }

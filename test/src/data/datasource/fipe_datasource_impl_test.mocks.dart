@@ -30,14 +30,9 @@ class _FakeDio_0 extends _i1.SmartFake implements _i2.Dio {
     : super(parent, parentInvocation);
 }
 
-class _FakeVehicleModels_1 extends _i1.SmartFake implements _i3.VehicleModels {
-  _FakeVehicleModels_1(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeFipeTableModel_2 extends _i1.SmartFake
+class _FakeFipeTableModel_1 extends _i1.SmartFake
     implements _i3.FipeTableModel {
-  _FakeFipeTableModel_2(Object parent, Invocation parentInvocation)
+  _FakeFipeTableModel_1(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
@@ -92,7 +87,7 @@ class MockFipeDatasourceImpl extends _i1.Mock
           as _i5.Future<List<_i3.BrandModel>>);
 
   @override
-  _i5.Future<_i3.VehicleModels> getVehicleModels({
+  _i5.Future<List<_i3.VehicleModels>> getVehicleModels({
     required String? tableCode,
     required String? vehicleCode,
     required String? brandCode,
@@ -103,129 +98,76 @@ class MockFipeDatasourceImpl extends _i1.Mock
               #vehicleCode: vehicleCode,
               #brandCode: brandCode,
             }),
-            returnValue: _i5.Future<_i3.VehicleModels>.value(
-              _FakeVehicleModels_1(
-                this,
-                Invocation.method(#getVehicleModels, [], {
-                  #tableCode: tableCode,
-                  #vehicleCode: vehicleCode,
-                  #brandCode: brandCode,
-                }),
-              ),
+            returnValue: _i5.Future<List<_i3.VehicleModels>>.value(
+              <_i3.VehicleModels>[],
             ),
-            returnValueForMissingStub: _i5.Future<_i3.VehicleModels>.value(
-              _FakeVehicleModels_1(
-                this,
-                Invocation.method(#getVehicleModels, [], {
-                  #tableCode: tableCode,
-                  #vehicleCode: vehicleCode,
-                  #brandCode: brandCode,
-                }),
-              ),
-            ),
+            returnValueForMissingStub:
+                _i5.Future<List<_i3.VehicleModels>>.value(
+                  <_i3.VehicleModels>[],
+                ),
           )
-          as _i5.Future<_i3.VehicleModels>);
+          as _i5.Future<List<_i3.VehicleModels>>);
 
   @override
-  _i5.Future<List<_i3.YearModel>> getYearModel({
+  _i5.Future<List<_i3.YearByModel>> getYearByModel({
     required String? tableCode,
     required String? vehicleCode,
     required String? brandCode,
     required String? modelCode,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#getYearModel, [], {
+            Invocation.method(#getYearByModel, [], {
               #tableCode: tableCode,
               #vehicleCode: vehicleCode,
               #brandCode: brandCode,
               #modelCode: modelCode,
             }),
-            returnValue: _i5.Future<List<_i3.YearModel>>.value(
-              <_i3.YearModel>[],
+            returnValue: _i5.Future<List<_i3.YearByModel>>.value(
+              <_i3.YearByModel>[],
             ),
-            returnValueForMissingStub: _i5.Future<List<_i3.YearModel>>.value(
-              <_i3.YearModel>[],
+            returnValueForMissingStub: _i5.Future<List<_i3.YearByModel>>.value(
+              <_i3.YearByModel>[],
             ),
           )
-          as _i5.Future<List<_i3.YearModel>>);
-
-  @override
-  _i5.Future<List<_i3.ModelByYearModel>> getModelByYear({
-    required String? tableCode,
-    required String? vehicleCode,
-    required String? brandCode,
-    required String? year,
-    required String? fuelCode,
-    required String? yearModel,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#getModelByYear, [], {
-              #tableCode: tableCode,
-              #vehicleCode: vehicleCode,
-              #brandCode: brandCode,
-              #year: year,
-              #fuelCode: fuelCode,
-              #yearModel: yearModel,
-            }),
-            returnValue: _i5.Future<List<_i3.ModelByYearModel>>.value(
-              <_i3.ModelByYearModel>[],
-            ),
-            returnValueForMissingStub:
-                _i5.Future<List<_i3.ModelByYearModel>>.value(
-                  <_i3.ModelByYearModel>[],
-                ),
-          )
-          as _i5.Future<List<_i3.ModelByYearModel>>);
+          as _i5.Future<List<_i3.YearByModel>>);
 
   @override
   _i5.Future<_i3.FipeTableModel> getFipeTable({
     required String? tableCode,
     required String? vehicleCode,
     required String? brandCode,
-    required String? year,
-    required String? fuelCode,
-    required String? yearModel,
+    required String? yearId,
     required String? modelCode,
-    required String? consultType,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#getFipeTable, [], {
               #tableCode: tableCode,
               #vehicleCode: vehicleCode,
               #brandCode: brandCode,
-              #year: year,
-              #fuelCode: fuelCode,
-              #yearModel: yearModel,
+              #yearId: yearId,
               #modelCode: modelCode,
-              #consultType: consultType,
             }),
             returnValue: _i5.Future<_i3.FipeTableModel>.value(
-              _FakeFipeTableModel_2(
+              _FakeFipeTableModel_1(
                 this,
                 Invocation.method(#getFipeTable, [], {
                   #tableCode: tableCode,
                   #vehicleCode: vehicleCode,
                   #brandCode: brandCode,
-                  #year: year,
-                  #fuelCode: fuelCode,
-                  #yearModel: yearModel,
+                  #yearId: yearId,
                   #modelCode: modelCode,
-                  #consultType: consultType,
                 }),
               ),
             ),
             returnValueForMissingStub: _i5.Future<_i3.FipeTableModel>.value(
-              _FakeFipeTableModel_2(
+              _FakeFipeTableModel_1(
                 this,
                 Invocation.method(#getFipeTable, [], {
                   #tableCode: tableCode,
                   #vehicleCode: vehicleCode,
                   #brandCode: brandCode,
-                  #year: year,
-                  #fuelCode: fuelCode,
-                  #yearModel: yearModel,
+                  #yearId: yearId,
                   #modelCode: modelCode,
-                  #consultType: consultType,
                 }),
               ),
             ),

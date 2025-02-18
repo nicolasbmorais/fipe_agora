@@ -10,10 +10,8 @@ class DioClient implements DioClientInterface {
       BaseOptions(
         baseUrl: Environment.baseURL,
         headers: {
-          'x-rapidapi-key': Environment.apiKey,
-          'x-rapidapi-host': 'fipe2.p.rapidapi.com',
+          'X-Subscription-Token': Environment.apiKey,
           'Content-Type': 'application/json',
-          'accept-encoding': 'gzip',
         },
       ),
     );

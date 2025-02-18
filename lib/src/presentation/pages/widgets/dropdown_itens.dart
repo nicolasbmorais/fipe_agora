@@ -32,7 +32,7 @@ class _DropDownItensState extends State<DropDownItens> {
                   !controller.isLoading,
               itemList: controller.referenceTableList,
               selectedItem: controller.referenceTable,
-              itemLabel: (value) => value.mes,
+              itemLabel: (value) => value.month,
               onSelect: (value) {
                 controller.getBrand(value!);
               },
@@ -43,32 +43,32 @@ class _DropDownItensState extends State<DropDownItens> {
               enabled: controller.brandList.isNotEmpty && !controller.isLoading,
               itemList: controller.brandList,
               selectedItem: controller.brandEntity,
-              itemLabel: (value) => value.label,
+              itemLabel: (value) => value.name,
               onSelect: (value) {
                 controller.getVehicleModel(value!);
               },
             ),
-            _DropDownMenuWidget<ModelEntity>(
+            _DropDownMenuWidget<VehicleModelsEntity>(
               title: 'Modelo',
               isLoading: controller.isLoading,
-              enabled: controller.vehicleModel.model.isNotEmpty &&
-                  !controller.isLoading,
-              itemList: controller.vehicleModel.model,
-              selectedItem: controller.modelEntity,
-              itemLabel: (value) => value.label,
+              enabled:
+                  controller.vehicleModel.isNotEmpty && !controller.isLoading,
+              itemList: controller.vehicleModel,
+              selectedItem: controller.vehicleModelsEntity,
+              itemLabel: (value) => value.name,
               onSelect: (value) {
-                controller.getYearModel(value!);
+                controller.getYearByModel(value!);
               },
             ),
-            _DropDownMenuWidget<YearModelEntity>(
+            _DropDownMenuWidget<YearByModelEntity>(
               title: 'Ano',
               enableSearch: false,
               isLoading: controller.isLoading,
-              enabled: controller.vehicleModel.year.isNotEmpty &&
-                  !controller.isLoading,
-              itemList: controller.yearModelList,
-              selectedItem: controller.yearModelEntity,
-              itemLabel: (value) => value.label,
+              enabled:
+                  controller.vehicleModel.isNotEmpty && !controller.isLoading,
+              itemList: controller.yearIdList,
+              selectedItem: controller.yearIdEntity,
+              itemLabel: (value) => value.code,
               onSelect: (value) {
                 controller.getFipeTable(value!);
               },

@@ -84,7 +84,7 @@ void main() {
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
-      )).thenAnswer((_) async => tVehicleModel());
+      )).thenAnswer((_) async => tVehicleModelModelList());
 
       final response = await fipeDataSource.getVehicleModels(
         tableCode: 'tableCode',
@@ -92,7 +92,7 @@ void main() {
         brandCode: 'brandCode',
       );
 
-      expect(response, tVehicleModel());
+      expect(response, tVehicleModelModelList());
     });
 
     test('Should return an empty list when no VehicleModels are available',
@@ -101,14 +101,14 @@ void main() {
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
-      )).thenAnswer((_) async => const VehicleModels(model: [], year: []));
+      )).thenAnswer((_) async => <VehicleModels>[]);
 
       final response = await fipeDataSource.getVehicleModels(
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
       );
-      expect(response, const VehicleModels(model: [], year: []));
+      expect(response, <VehicleModels>[]);
     });
 
     test('Should throw an exception when getVehicleModels fails', () async {
@@ -133,50 +133,50 @@ void main() {
 
   group('Function to get year model', () {
     test('Should return a list of year model', () async {
-      when(fipeRepositoryImpl.getYearModel(
+      when(fipeRepositoryImpl.getYearByModel(
               tableCode: 'tableCode',
               vehicleCode: 'vehicleCode',
               brandCode: 'brandCode',
               modelCode: 'modelCode'))
-          .thenAnswer((_) async => tYearModelList());
+          .thenAnswer((_) async => tYearByModelList());
 
-      final response = await fipeDataSource.getYearModel(
+      final response = await fipeDataSource.getYearByModel(
           tableCode: 'tableCode',
           vehicleCode: 'vehicleCode',
           brandCode: 'brandCode',
           modelCode: 'modelCode');
 
-      expect(response, tYearModelList());
+      expect(response, tYearByModelList());
     });
 
     test('Should return an empty list when no year model are available',
         () async {
-      when(fipeRepositoryImpl.getYearModel(
+      when(fipeRepositoryImpl.getYearByModel(
               tableCode: 'tableCode',
               vehicleCode: 'vehicleCode',
               brandCode: 'brandCode',
               modelCode: 'modelCode'))
-          .thenAnswer((_) async => <YearModel>[]);
+          .thenAnswer((_) async => <YearByModel>[]);
 
-      final response = await fipeDataSource.getYearModel(
+      final response = await fipeDataSource.getYearByModel(
           tableCode: 'tableCode',
           vehicleCode: 'vehicleCode',
           brandCode: 'brandCode',
           modelCode: 'modelCode');
-      expect(response, <YearModel>[]);
+      expect(response, <YearByModel>[]);
     });
 
-    test('Should throw an exception when getYearModel fails', () async {
-      when(fipeRepositoryImpl.getYearModel(
+    test('Should throw an exception when getYearByModel fails', () async {
+      when(fipeRepositoryImpl.getYearByModel(
               tableCode: 'tableCode',
               vehicleCode: 'vehicleCode',
               brandCode: 'brandCode',
               modelCode: 'modelCode'))
-          .thenThrow(Exception('Failed to fetch YearModel'));
+          .thenThrow(Exception('Failed to fetch YearByModel'));
 
       expect(
         () async {
-          await fipeDataSource.getYearModel(
+          await fipeDataSource.getYearByModel(
               tableCode: 'tableCode',
               vehicleCode: 'vehicleCode',
               brandCode: 'brandCode',
@@ -193,22 +193,16 @@ void main() {
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
-        year: 'year',
-        fuelCode: 'fuelCode',
-        yearModel: 'yearModel',
+        yearId: 'yearId',
         modelCode: 'modelCode',
-        consultType: 'consultType',
       )).thenAnswer((_) async => tFipeTableModel());
 
       final response = await fipeDataSource.getFipeTable(
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
-        year: 'year',
-        fuelCode: 'fuelCode',
-        yearModel: 'yearModel',
+        yearId: 'yearId',
         modelCode: 'modelCode',
-        consultType: 'consultType',
       );
 
       expect(response, tFipeTableModel());
@@ -219,21 +213,15 @@ void main() {
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
-        year: 'year',
-        fuelCode: 'fuelCode',
-        yearModel: 'yearModel',
+        yearId: 'yearId',
         modelCode: 'modelCode',
-        consultType: 'consultType',
       )).thenAnswer((_) async => tEmptyFipeTableModel());
       final response = await fipeDataSource.getFipeTable(
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
-        year: 'year',
-        fuelCode: 'fuelCode',
-        yearModel: 'yearModel',
+        yearId: 'yearId',
         modelCode: 'modelCode',
-        consultType: 'consultType',
       );
 
       expect(response, tEmptyFipeTableModel());
@@ -244,12 +232,9 @@ void main() {
         tableCode: 'tableCode',
         vehicleCode: 'vehicleCode',
         brandCode: 'brandCode',
-        year: 'year',
-        fuelCode: 'fuelCode',
-        yearModel: 'yearModel',
+        yearId: 'yearId',
         modelCode: 'modelCode',
-        consultType: 'consultType',
-      )).thenThrow(Exception('Failed to fetch YearModel'));
+      )).thenThrow(Exception('Failed to fetch YearByModel'));
 
       expect(
         () async {
@@ -257,11 +242,8 @@ void main() {
             tableCode: 'tableCode',
             vehicleCode: 'vehicleCode',
             brandCode: 'brandCode',
-            year: 'year',
-            fuelCode: 'fuelCode',
-            yearModel: 'yearModel',
+            yearId: 'yearId',
             modelCode: 'modelCode',
-            consultType: 'consultType',
           );
         },
         throwsA(isA<Exception>()),

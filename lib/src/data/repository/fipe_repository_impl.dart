@@ -2,7 +2,6 @@ import 'package:fipe_agora/src/data/datasource/fipe_datasource_interface.dart';
 import 'package:fipe_agora/src/data/exceptions/fipe_exceptions.dart';
 import 'package:fipe_agora/src/domain/entities/brand_entity.dart';
 import 'package:fipe_agora/src/domain/entities/fipe_table_entity.dart';
-import 'package:fipe_agora/src/domain/entities/model_by_year_entity.dart';
 import 'package:fipe_agora/src/domain/entities/reference_table_entity.dart';
 import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
 import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
@@ -17,7 +16,7 @@ class FipeRepositoryImpl implements FipeRepositoryInterface {
     try {
       return await fipeDataSource.getReferenceTable();
     } on ReferenceTableException catch (e) {
-      throw Exception(e);
+      throw Exception(e.message);
     }
   }
 
@@ -37,7 +36,7 @@ class FipeRepositoryImpl implements FipeRepositoryInterface {
   }
 
   @override
-  Future<VehicleModelsEntity> getVehicleModels({
+  Future<List<VehicleModelsEntity>> getVehicleModels({
     required String tableCode,
     required String vehicleCode,
     required String brandCode,
@@ -54,44 +53,21 @@ class FipeRepositoryImpl implements FipeRepositoryInterface {
   }
 
   @override
-  Future<List<YearModelEntity>> getYearModel({
+  Future<List<YearByModelEntity>> getYearByModel({
     required String tableCode,
     required String vehicleCode,
     required String brandCode,
     required String modelCode,
   }) async {
     try {
-      return await fipeDataSource.getYearModel(
+      return await fipeDataSource.getYearByModel(
         tableCode: tableCode,
         vehicleCode: vehicleCode,
         brandCode: brandCode,
         modelCode: modelCode,
       );
-    } on YearModelException catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  @override
-  Future<List<ModelByYearEntity>> getModelByYear({
-    required String tableCode,
-    required String vehicleCode,
-    required String brandCode,
-    required String year,
-    required String fuelCode,
-    required String yearModel,
-  }) async {
-    try {
-      return await fipeDataSource.getModelByYear(
-        tableCode: tableCode,
-        vehicleCode: vehicleCode,
-        brandCode: brandCode,
-        year: year,
-        fuelCode: fuelCode,
-        yearModel: yearModel,
-      );
-    } on ReferenceTableException catch (e) {
-      throw Exception(e);
+    } on YearByModelException catch (e) {
+      throw Exception(e.message);
     }
   }
 
@@ -100,25 +76,19 @@ class FipeRepositoryImpl implements FipeRepositoryInterface {
     required String tableCode,
     required String vehicleCode,
     required String brandCode,
-    required String year,
-    required String fuelCode,
-    required String yearModel,
+    required String yearId,
     required String modelCode,
-    required String consultType,
   }) async {
     try {
       return await fipeDataSource.getFipeTable(
         tableCode: tableCode,
         modelCode: modelCode,
-        consultType: consultType,
         vehicleCode: vehicleCode,
         brandCode: brandCode,
-        year: year,
-        fuelCode: fuelCode,
-        yearModel: yearModel,
+        yearId: yearId,
       );
     } on FipeTableException catch (e) {
-      throw Exception(e);
+      throw Exception(e.message);
     }
   }
 }

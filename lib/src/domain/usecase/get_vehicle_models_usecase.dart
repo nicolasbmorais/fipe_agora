@@ -5,12 +5,12 @@ import 'package:fipe_agora/src/domain/failure/failure.dart';
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart';
 
 class GetVehicleModelsUsecase
-    extends Usecase<VehicleModelsEntity, GetVehicleModelsParams> {
+    extends Usecase<List<VehicleModelsEntity>, GetVehicleModelsParams> {
   final FipeRepositoryInterface repository;
 
   GetVehicleModelsUsecase({required this.repository});
   @override
-  Future<VehicleModelsEntity> call(GetVehicleModelsParams params) async {
+  Future<List<VehicleModelsEntity>> call(GetVehicleModelsParams params) async {
     try {
       return await repository.getVehicleModels(
         tableCode: params.tableCode,

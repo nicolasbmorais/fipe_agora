@@ -4,34 +4,34 @@ import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
 import 'package:fipe_agora/src/domain/failure/failure.dart';
 import 'package:fipe_agora/src/domain/repository/repository_interface.dart';
 
-class GetYearModelUsecase
-    extends Usecase<List<YearModelEntity>, GetYearModelParams> {
+class GetYearByModelUsecase
+    extends Usecase<List<YearByModelEntity>, GetYearByModelParams> {
   final FipeRepositoryInterface repository;
 
-  GetYearModelUsecase({required this.repository});
+  GetYearByModelUsecase({required this.repository});
 
   @override
-  Future<List<YearModelEntity>> call(GetYearModelParams params) async {
+  Future<List<YearByModelEntity>> call(GetYearByModelParams params) async {
     try {
-      return await repository.getYearModel(
+      return await repository.getYearByModel(
         tableCode: params.tableCode,
         vehicleCode: params.vehicleCode,
         brandCode: params.brandCode,
         modelCode: params.modelCode,
       );
     } on Exception catch (e) {
-      throw YearModelFailure(message: e.toString());
+      throw YearByModelFailure(message: e.toString());
     }
   }
 }
 
-class GetYearModelParams extends Equatable {
+class GetYearByModelParams extends Equatable {
   final String tableCode;
   final String vehicleCode;
   final String brandCode;
   final String modelCode;
 
-  const GetYearModelParams({
+  const GetYearByModelParams({
     required this.tableCode,
     required this.vehicleCode,
     required this.brandCode,

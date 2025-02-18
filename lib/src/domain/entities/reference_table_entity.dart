@@ -1,19 +1,19 @@
 import 'package:equatable/equatable.dart';
 
 class ReferenceTableEntity extends Equatable {
-  final int codigo;
-  final String mes;
+  final String code;
+  final String month;
 
   const ReferenceTableEntity({
-    required this.codigo,
-    required this.mes,
+    required this.code,
+    required this.month,
   });
 
   factory ReferenceTableEntity.empty() => const ReferenceTableEntity(
-        codigo: 317,
-        mes: 'janeiro/2025',
+        code: "",
+        month: "",
       );
 
   @override
-  List<Object?> get props => [codigo, mes];
+  List<Object?> get props => [code, month];
 }

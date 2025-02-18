@@ -2,12 +2,12 @@ import 'package:fipe_agora/src/domain/entities/brand_entity.dart';
 
 class BrandModel extends BrandEntity {
   const BrandModel({
-    required super.label,
-    required super.value,
+    required super.name,
+    required super.code,
   });
 
   factory BrandModel.fromJson(Map<String, dynamic> json) => BrandModel(
-        label: json["Label"] ?? '',
-        value: json["Value"] ?? '',
+        name: json["name"] ?? '',
+        code: json["code"] ?? '',
       );
 }

@@ -1,13 +1,13 @@
 import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
 
-class YearModel extends YearModelEntity {
-  const YearModel({
-    required super.label,
-    required super.value,
+class YearByModel extends YearByModelEntity {
+  const YearByModel({
+    required super.code,
+    required super.name,
   });
 
-  factory YearModel.fromJson(Map<String, dynamic> json) => YearModel(
-        label: json["Label"] ?? '',
-        value: json["Value"] ?? '',
+  factory YearByModel.fromJson(Map<String, dynamic> json) => YearByModel(
+        code: json["code"] ?? '',
+        name: json["name"] ?? '',
       );
 }

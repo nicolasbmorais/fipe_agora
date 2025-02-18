@@ -22,10 +22,10 @@ class VehicleModelsException implements Exception {
             'Desculpe, não foi possível listar os modelos. Tente novamente';
 }
 
-class YearModelException implements Exception {
+class YearByModelException implements Exception {
   final String message;
 
-  YearModelException({String? message})
+  YearByModelException({String? message})
       : message = message ??
             'Desculpe, não foi possível listar os anos. Tente novamente';
 }
@@ -34,14 +34,6 @@ class FipeTableException implements Exception {
   final String message;
 
   FipeTableException({String? message})
-      : message = message ??
-            'Desculpe, não foi possível consultar a Tabela Fipe. Tente novamente';
-}
-
-class ModelByYearException implements Exception {
-  final String message;
-
-  ModelByYearException({String? message})
       : message = message ??
             'Desculpe, não foi possível consultar a Tabela Fipe. Tente novamente';
 }

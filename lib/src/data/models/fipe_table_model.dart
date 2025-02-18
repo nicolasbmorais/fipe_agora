@@ -2,30 +2,45 @@ import 'package:fipe_agora/src/domain/entities/fipe_table_entity.dart';
 
 class FipeTableModel extends FipeTableEntity {
   const FipeTableModel({
-    required super.value,
     required super.brand,
+    required super.codeFipe,
+    required super.fuel,
+    required super.fuelAcronym,
     required super.model,
     required super.modelYear,
-    required super.fuel,
-    required super.fipeCode,
+    required super.price,
+    required super.priceHistory,
     required super.referenceMonth,
-    required super.authentication,
     required super.vehicleType,
-    required super.fuelAcronym,
-    required super.consultationDate,
   });
 
   factory FipeTableModel.fromJson(Map<String, dynamic> json) => FipeTableModel(
-        value: json["Valor"] ?? '',
-        brand: json["Marca"] ?? '',
-        model: json["Modelo"] ?? '',
-        modelYear: json["AnoModelo"] ?? 0,
-        fuel: json["Combustivel"] ?? '',
-        fipeCode: json["CodigoFipe"] ?? '',
-        referenceMonth: json["MesReferencia"] ?? '',
-        authentication: json["Autenticacao"] ?? '',
-        vehicleType: json["TipoVeiculo"] ?? 0,
-        fuelAcronym: json["SiglaCombustivel"] ?? '',
-        consultationDate: json["DataConsulta"] ?? '',
+        brand: json["brand"] ?? '',
+        codeFipe: json["codeFipe"] ?? '',
+        fuel: json["fuel"] ?? '',
+        fuelAcronym: json["fuelAcronym"] ?? '',
+        model: json["model"] ?? '',
+        modelYear: json["modelYear"] ?? 0,
+        price: json["price"] ?? '',
+        priceHistory: json["priceHistory"] != null
+            ? List<PriceHistory>.from(
+                json["priceHistory"].map((x) => PriceHistory.fromJson(x)))
+            : [],
+        referenceMonth: json["referenceMonth"] ?? '',
+        vehicleType: json["vehicleType"] ?? 0,
+      );
+}
+
+class PriceHistory extends PriceHistoryEntity {
+  const PriceHistory({
+    required super.month,
+    required super.price,
+    required super.reference,
+  });
+
+  factory PriceHistory.fromJson(Map<String, dynamic> json) => PriceHistory(
+        month: json["month"],
+        price: json["price"],
+        reference: json["reference"],
       );
 }

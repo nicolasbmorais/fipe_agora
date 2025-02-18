@@ -22,7 +22,7 @@ void main() {
       tableCode: 'tableCode',
       vehicleCode: 'vehicleCode',
       brandCode: 'brandCode',
-    )).thenAnswer((_) async => tVehicleModelEntity());
+    )).thenAnswer((_) async => tVehicleModelEntityList());
 
     final response = await getVehicleModelsUsecase(const GetVehicleModelsParams(
       tableCode: 'tableCode',

@@ -15,11 +15,8 @@ class GetFipeTableUsecase extends Usecase<FipeTableEntity, GetFipeParams> {
         tableCode: params.tableCode,
         vehicleCode: params.vehicleCode,
         brandCode: params.brandCode,
-        year: params.year,
-        fuelCode: params.fuelCode,
-        yearModel: params.yearModel,
         modelCode: params.modelCode,
-        consultType: params.consultType,
+        yearId: params.yearId,
       );
     } on Exception catch (e) {
       throw FipeTableFailure(message: e.toString());
@@ -31,21 +28,15 @@ class GetFipeParams extends Equatable {
   final String tableCode;
   final String vehicleCode;
   final String brandCode;
-  final String year;
-  final String fuelCode;
-  final String yearModel;
+  final String yearId;
   final String modelCode;
-  final String consultType;
 
   const GetFipeParams({
     required this.tableCode,
     required this.vehicleCode,
     required this.brandCode,
-    required this.year,
-    required this.fuelCode,
-    required this.yearModel,
+    required this.yearId,
     required this.modelCode,
-    required this.consultType,
   });
 
   @override
@@ -53,10 +44,7 @@ class GetFipeParams extends Equatable {
         tableCode,
         vehicleCode,
         brandCode,
-        year,
-        fuelCode,
-        yearModel,
+        yearId,
         modelCode,
-        consultType,
       ];
 }

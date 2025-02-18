@@ -1,29 +1,25 @@
 abstract class Failure {
   String? message;
 
-  Failure({this.message});
+  Failure({required this.message});
 }
 
 class ReferenceTableFailure extends Failure {
-  ReferenceTableFailure({super.message});
+  ReferenceTableFailure({required super.message});
 }
 
 class BrandsFailure extends Failure {
-  BrandsFailure({super.message});
+  BrandsFailure({required super.message});
 }
 
 class VehicleModelFailure extends Failure {
-  VehicleModelFailure({super.message});
+  VehicleModelFailure({required super.message});
 }
 
-class YearModelFailure extends Failure {
-  YearModelFailure({super.message});
-}
-
-class ModelByYearFailure extends Failure {
-  ModelByYearFailure({super.message});
+class YearByModelFailure extends Failure {
+  YearByModelFailure({required super.message});
 }
 
 class FipeTableFailure extends Failure {
-  FipeTableFailure({super.message});
+  FipeTableFailure({required super.message});
 }

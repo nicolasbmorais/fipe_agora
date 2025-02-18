@@ -20,7 +20,7 @@ void main() {
   test('Should return a list of reference tables', () async {
     // Arrange
     when(repository.getReferenceTable())
-        .thenAnswer((_) async => tListReferenceTableEntity());
+        .thenAnswer((_) async => tListReferenceTableEntity()); 
 
     // Act
     final result = await usecase(NoParams());

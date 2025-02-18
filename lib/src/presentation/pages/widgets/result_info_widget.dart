@@ -33,11 +33,11 @@ class ResultInfoWidget extends StatelessWidget {
             ),
             _ResultInfoListTile(
               text: r'Valor em R$',
-              suffixText: fipeTable.value,
+              suffixText: fipeTable.price,
             ),
             _ResultInfoListTile(
               text: 'Data da consulta',
-              suffixText: fipeTable.consultationDate,
+              suffixText: 'fipeTable.consultationDate,',
             ),
           ],
         );
@@ -65,7 +65,7 @@ class _ResultInfoListTile extends StatelessWidget {
               child: Text(
                 suffixText,
                 textAlign: TextAlign.end,
-                style: CustomTypography.bold,
+                style: CustomTypography.semiBold,
               ),
             ),
           ],

@@ -1,10 +1,10 @@
 [
         {
-                "Codigo": 317,
-                "Mes": "janeiro/2025"
+                "code": "317",
+                "month": "janeiro/2025"
         },
         {
-                "Codigo": 316,
-                "Mes": "dezembro/2024"
+                "code": "316",
+                "month": "dezembro/2024"
         }
 ]

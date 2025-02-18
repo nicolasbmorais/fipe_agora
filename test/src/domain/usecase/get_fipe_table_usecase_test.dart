@@ -21,22 +21,16 @@ void main() {
       tableCode: 'tableCode',
       vehicleCode: 'vehicleCode',
       brandCode: 'brandCode',
-      year: 'year',
-      fuelCode: 'fuelCode',
-      yearModel: 'yearModel',
+      yearId: 'yearId',
       modelCode: 'modelCode',
-      consultType: 'consultType',
     )).thenAnswer((_) async => tFipeTableEntity());
 
     final response = await getFipeTableUsecase(const GetFipeParams(
       tableCode: 'tableCode',
       vehicleCode: 'vehicleCode',
       brandCode: 'brandCode',
-      year: 'year',
-      fuelCode: 'fuelCode',
-      yearModel: 'yearModel',
+      yearId: 'yearId',
       modelCode: 'modelCode',
-      consultType: 'consultType',
     ));
 
     expect(response, tFipeTableEntity());

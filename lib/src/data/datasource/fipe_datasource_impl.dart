@@ -12,7 +12,7 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
   @override
   Future<List<ReferenceTableModel>> getReferenceTable() async {
     try {
-      final response = await dio.post('ConsultarTabelaDeReferencia');
+      final response = await dio.get('references');
 
       if (response.statusCode != 200 || response.data == null) {
         throw ReferenceTableException();
@@ -27,7 +27,7 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
           : [];
     } on DioException catch (error) {
       throw ReferenceTableException(
-        message: error.response?.data["data"][0]['message'],
+        message: error.response?.data['error'],
       );
     } catch (err) {
       throw ReferenceTableException();
@@ -40,13 +40,9 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
     required String vehicleCode,
   }) async {
     try {
-      final response = await dio.post(
-        '${Environment.baseURL}ConsultarMarcas',
-        data: {
-          "codigoTabelaReferencia": tableCode,
-          "codigoTipoVeiculo": vehicleCode,
-        },
-      );
+      final response = await dio.get(
+          '${Environment.baseURL}$vehicleCode/brands',
+          queryParameters: {"reference": tableCode});
 
       if (response.statusCode != 200 || response.data == null) {
         throw BrandsException();
@@ -58,7 +54,7 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
           : <BrandModel>[];
     } on DioException catch (error) {
       throw BrandsException(
-        message: error.response?.data["data"][0]['message'],
+        message: error.response?.data['error'],
       );
     } catch (err) {
       throw BrandsException(message: err.toString());
@@ -66,87 +62,60 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
   }
 
   @override
-  Future<VehicleModels> getVehicleModels({
+  Future<List<VehicleModels>> getVehicleModels({
     required String tableCode,
     required String vehicleCode,
     required String brandCode,
   }) async {
     try {
-      final response =
-          await dio.post('${Environment.baseURL}ConsultarModelos', data: {
-        "codigoTabelaReferencia": tableCode,
-        "codigoTipoVeiculo": vehicleCode,
-        "codigoMarca": brandCode,
-      });
+      final response = await dio.get(
+        '${Environment.baseURL}$vehicleCode/brands/$brandCode/models',
+        queryParameters: {'reference': tableCode},
+      );
 
       if (response.statusCode != 200 || response.data == null) {
         throw VehicleModelsException();
       }
 
-      return VehicleModels.fromJson(response.data);
-    } on DioException catch (_) {
-      throw VehicleModelsException();
+      return response.data is List
+          ? List<VehicleModels>.from(
+              response.data.map((item) => VehicleModels.fromJson(item)))
+          : <VehicleModels>[];
+    } on DioException catch (error) {
+      throw VehicleModelsException(
+        message: error.response?.data['error'],
+      );
     } catch (err) {
       throw VehicleModelsException(message: err.toString());
     }
   }
 
   @override
-  Future<List<YearModel>> getYearModel({
+  Future<List<YearByModel>> getYearByModel({
     required String tableCode,
     required String vehicleCode,
     required String brandCode,
     required String modelCode,
   }) async {
     try {
-      final response =
-          await dio.post('${Environment.baseURL}ConsultarAnoModelo', data: {
-        "codigoTabelaReferencia": tableCode,
-        "codigoTipoVeiculo": vehicleCode,
-        "codigoMarca": brandCode,
-        "codigoModelo": modelCode,
-      });
+      final response = await dio.get(
+          '${Environment.baseURL}$vehicleCode/brands/$brandCode/models/$modelCode/years',
+          queryParameters: {"reference": tableCode});
 
       if (response.statusCode != 200 || response.data == null) {
-        throw YearModelException();
+        throw YearByModelException();
       }
 
       return response.data is List
-          ? List<YearModel>.from(
-              response.data.map((item) => YearModel.fromJson(item)))
-          : <YearModel>[];
-    } on DioException catch (_) {
-      throw YearModelException();
+          ? List<YearByModel>.from(
+              response.data.map((item) => YearByModel.fromJson(item)))
+          : <YearByModel>[];
+    } on DioException catch (error) {
+      throw YearByModelException(
+        message: error.response?.data['error'],
+      );
     } catch (err) {
-      throw YearModelException(message: err.toString());
-    }
-  }
-
-  @override
-  Future<List<ModelByYearModel>> getModelByYear({
-    required String tableCode,
-    required String vehicleCode,
-    required String brandCode,
-    required String year,
-    required String fuelCode,
-    required String yearModel,
-  }) async {
-    try {
-      final response =
-          await dio.post('${Environment.baseURL}ConsultarModelosAtravesDoAno');
-
-      if (response.statusCode != 200 || response.data == null) {
-        throw ModelByYearException();
-      }
-
-      return response.data is List
-          ? List<ModelByYearModel>.from(
-              response.data.map((item) => ModelByYearModel.fromJson(item)))
-          : <ModelByYearModel>[];
-    } on DioException catch (_) {
-      throw ModelByYearException();
-    } catch (err) {
-      throw ModelByYearException(message: err.toString());
+      throw YearByModelException(message: err.toString());
     }
   }
 
@@ -155,33 +124,23 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
     required String tableCode,
     required String vehicleCode,
     required String brandCode,
-    required String year,
-    required String fuelCode,
-    required String yearModel,
+    required String yearId,
     required String modelCode,
-    required String consultType,
   }) async {
     try {
-      final response = await dio.post(
-          '${Environment.baseURL}ConsultarValorComTodosParametros',
-          data: {
-            "codigoTabelaReferencia": tableCode,
-            "codigoTipoVeiculo": vehicleCode,
-            "codigoMarca": brandCode,
-            "ano": year,
-            "codigoTipoCombustivel": fuelCode,
-            "anoModelo": yearModel,
-            "codigoModelo": modelCode,
-            "tipoConsulta": consultType,
-          });
+      final response = await dio.get(
+          '${Environment.baseURL}$vehicleCode/brands/$brandCode/models/$modelCode/years/$yearId',
+          data: {"reference": tableCode});
 
       if (response.statusCode != 200 || response.data == null) {
         throw FipeTableException();
       }
 
       return FipeTableModel.fromJson(response.data);
-    } on DioException catch (_) {
-      throw FipeTableException();
+    } on DioException catch (error) {
+      throw FipeTableException(
+        message: error.response?.data['error'],
+      );
     } catch (err) {
       throw FipeTableException(message: err.toString());
     }
