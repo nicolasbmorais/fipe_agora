@@ -56,11 +56,12 @@ void main() {
 
   group('Brand List Test', () {
     test('Should return a brand list', () async {
-      when(dio.get(any)).thenAnswer((_) async => Response(
-            requestOptions: requestOptions,
-            statusCode: 200,
-            data: List.from(jsonDecode(fixture('brands.json'))),
-          ));
+      when(dio.get(any, queryParameters: anyNamed('queryParameters')))
+          .thenAnswer((_) async => Response(
+                requestOptions: requestOptions,
+                statusCode: 200,
+                data: List.from(jsonDecode(fixture('brands.json'))),
+              ));
 
       final result =
           await datasourceImpl.getBrands(tableCode: '290', vehicleCode: 'cars');
@@ -87,7 +88,8 @@ void main() {
 
   group('Vehicle Model List Test', () {
     test('Should return Vehicle Model', () async {
-      when(dio.get(any)).thenAnswer((_) async {
+      when(dio.get(any, queryParameters: anyNamed('queryParameters')))
+          .thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 200,
@@ -125,7 +127,8 @@ void main() {
   });
   group('Year By Model List Test', () {
     test('Should return year by model list', () async {
-      when(dio.get(any)).thenAnswer((_) async {
+      when(dio.get(any, queryParameters: anyNamed('queryParameters')))
+          .thenAnswer((_) async {
         return Response(
           requestOptions: requestOptions,
           statusCode: 200,

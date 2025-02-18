@@ -130,7 +130,7 @@ class FipeDatasourceImpl implements FipeDatasourceInterface {
     try {
       final response = await dio.get(
           '${Environment.baseURL}$vehicleCode/brands/$brandCode/models/$modelCode/years/$yearId',
-          data: {"reference": tableCode});
+          queryParameters: {"reference": tableCode});
 
       if (response.statusCode != 200 || response.data == null) {
         throw FipeTableException();
