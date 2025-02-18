@@ -8,6 +8,7 @@ import 'package:fipe_agora/src/domain/entities/vehicle_models_entity.dart';
 import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
 import 'package:fipe_agora/src/domain/failure/failure.dart';
 import 'package:fipe_agora/src/domain/usecase/usecase.dart';
+import 'package:intl/intl.dart';
 
 class VehicleType {
   final String name;
@@ -62,6 +63,8 @@ class FipeController extends BaseController {
 
   String _errorMessage = '';
   String get errorMessage => _errorMessage;
+
+  DateTime _consultDate = DateTime(0);
 
   reset() {
     brandEntity = BrandEntity.empty();
@@ -163,10 +166,19 @@ class FipeController extends BaseController {
         ),
       );
 
+      _consultDate = DateTime.now();
+
       setStatus(Status.success);
     } on FipeTableFailure catch (error) {
       _errorMessage = error.message ?? 'Ocorreu um erro. Tente novamente';
       setStatus(Status.error);
     }
+  }
+
+  String formatDate() {
+    final parsed = DateFormat("EEEE, dd 'de' MMMM 'de' yyyy, HH:mm", 'pt_BR')
+        .format(_consultDate);
+
+    return parsed;
   }
 }

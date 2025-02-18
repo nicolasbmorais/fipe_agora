@@ -37,7 +37,7 @@ class ResultInfoWidget extends StatelessWidget {
             ),
             _ResultInfoListTile(
               text: 'Data da consulta',
-              suffixText: 'fipeTable.consultationDate,',
+              suffixText: controller.formatDate(),
             ),
           ],
         );

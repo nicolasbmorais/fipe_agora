@@ -2,10 +2,13 @@ import 'package:fipe_agora/src/core/injector.dart';
 import 'package:fipe_agora/src/presentation/controller/fipe_controller.dart';
 import 'package:fipe_agora/src/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 void main() async {
+  await initializeDateFormatting('pt_BR');
+
   await setupInjector();
 
   runApp(const MyApp());
