@@ -1,47 +1,45 @@
 import 'package:fipe_agora/src/core/typography.dart';
 import 'package:fipe_agora/src/presentation/controller/fipe_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ResultInfoWidget extends StatelessWidget {
-  const ResultInfoWidget({
-    super.key,
-  });
+  final FipeController controller;
+
+  const ResultInfoWidget({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FipeController>(
-      builder: (context, controller, _) {
-        final fipeTable = controller.fipeTable;
-        return Column(
-          children: [
-            _ResultInfoListTile(
-              text: 'Marca',
-              suffixText: fipeTable.brand,
-            ),
-            _ResultInfoListTile(
-              text: 'Modelo',
-              suffixText: fipeTable.model,
-            ),
-            _ResultInfoListTile(
-              text: 'Mês de Referência',
-              suffixText: fipeTable.referenceMonth,
-            ),
-            _ResultInfoListTile(
-              text: 'Combustível',
-              suffixText: fipeTable.fuel,
-            ),
-            _ResultInfoListTile(
-              text: r'Valor em R$',
-              suffixText: fipeTable.price,
-            ),
-            _ResultInfoListTile(
-              text: 'Data da consulta',
-              suffixText: controller.formatDate(),
-            ),
-          ],
-        );
-      },
+    final fipeTable = controller.fipeTable;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          _ResultInfoListTile(
+            text: 'Marca',
+            suffixText: fipeTable.brand,
+          ),
+          _ResultInfoListTile(
+            text: 'Modelo',
+            suffixText: fipeTable.model,
+          ),
+          _ResultInfoListTile(
+            text: 'Mês de Referência',
+            suffixText: fipeTable.referenceMonth,
+          ),
+          _ResultInfoListTile(
+            text: 'Combustível',
+            suffixText: fipeTable.fuel,
+          ),
+          _ResultInfoListTile(
+            text: r'Valor em R$',
+            suffixText: fipeTable.price,
+          ),
+          _ResultInfoListTile(
+            text: 'Data da consulta',
+            suffixText: controller.formatDate(),
+          ),
+        ],
+      ),
     );
   }
 }

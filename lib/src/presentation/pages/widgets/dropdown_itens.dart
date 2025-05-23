@@ -9,9 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class DropDownItens extends StatefulWidget {
-  const DropDownItens({
-    super.key,
-  });
+  const DropDownItens({super.key});
 
   @override
   State<DropDownItens> createState() => _DropDownItensState();
@@ -27,7 +25,8 @@ class _DropDownItensState extends State<DropDownItens> {
           children: [
             _DropDownMenuWidget<ReferenceTableEntity>(
               title: 'Tabela de Referência',
-              isLoading: controller.isLoading,
+              isLoading:
+                  controller.isLoading && controller.referenceTableList.isEmpty,
               enabled: controller.referenceTableList.isNotEmpty &&
                   !controller.isLoading,
               itemList: controller.referenceTableList,
@@ -39,7 +38,7 @@ class _DropDownItensState extends State<DropDownItens> {
             ),
             _DropDownMenuWidget<BrandEntity>(
               title: 'Marcas',
-              isLoading: controller.isLoading,
+              isLoading: controller.isLoading && controller.brandList.isEmpty,
               enabled: controller.brandList.isNotEmpty && !controller.isLoading,
               itemList: controller.brandList,
               selectedItem: controller.brandEntity,
@@ -50,10 +49,11 @@ class _DropDownItensState extends State<DropDownItens> {
             ),
             _DropDownMenuWidget<VehicleModelsEntity>(
               title: 'Modelo',
-              isLoading: controller.isLoading,
-              enabled:
-                  controller.vehicleModel.isNotEmpty && !controller.isLoading,
-              itemList: controller.vehicleModel,
+              isLoading:
+                  controller.isLoading && controller.vehicleModelList.isEmpty,
+              enabled: controller.vehicleModelList.isNotEmpty &&
+                  !controller.isLoading,
+              itemList: controller.vehicleModelList,
               selectedItem: controller.vehicleModelsEntity,
               itemLabel: (value) => value.name,
               onSelect: (value) {
@@ -62,13 +62,12 @@ class _DropDownItensState extends State<DropDownItens> {
             ),
             _DropDownMenuWidget<YearByModelEntity>(
               title: 'Ano',
-              enableSearch: false,
-              isLoading: controller.isLoading,
+              isLoading: controller.isLoading && controller.yearIdList.isEmpty,
               enabled:
-                  controller.vehicleModel.isNotEmpty && !controller.isLoading,
+                  controller.yearIdList.isNotEmpty && !controller.isLoading,
               itemList: controller.yearIdList,
               selectedItem: controller.yearIdEntity,
-              itemLabel: (value) => value.code,
+              itemLabel: (value) => value.name,
               onSelect: (value) {
                 controller.getFipeTable(value!);
               },
@@ -98,7 +97,7 @@ class _DropDownMenuWidget<T> extends StatefulWidget {
     required this.itemList,
     required this.itemLabel,
     this.isLoading = false,
-    this.enableSearch = true,
+    this.enableSearch = false,
     this.selectedItem,
   });
 
@@ -107,6 +106,32 @@ class _DropDownMenuWidget<T> extends StatefulWidget {
 }
 
 class _DropDownMenuWidgetState<T> extends State<_DropDownMenuWidget<T>> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(
+      text: widget.selectedItem != null
+          ? widget.itemLabel(widget.selectedItem as T)
+          : '',
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant _DropDownMenuWidget<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _controller.text = widget.selectedItem != null
+        ? widget.itemLabel(widget.selectedItem as T)
+        : '';
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -117,6 +142,7 @@ class _DropDownMenuWidgetState<T> extends State<_DropDownMenuWidget<T>> {
         Skeletonizer(
           enabled: widget.isLoading,
           child: DropdownMenu<T>(
+            controller: _controller,
             hintText: 'Selecione um valor',
             enableSearch: widget.enableSearch,
             requestFocusOnTap: widget.enableSearch,

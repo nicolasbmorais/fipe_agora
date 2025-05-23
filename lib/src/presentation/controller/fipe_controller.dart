@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:fipe_agora/src/core/base_controller.dart';
 import 'package:fipe_agora/src/core/status.dart';
 import 'package:fipe_agora/src/core/usecase.dart';
@@ -9,6 +11,8 @@ import 'package:fipe_agora/src/domain/entities/year_model_entity.dart';
 import 'package:fipe_agora/src/domain/failure/failure.dart';
 import 'package:fipe_agora/src/domain/usecase/usecase.dart';
 import 'package:intl/intl.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 
 class VehicleType {
   final String name;
@@ -36,6 +40,9 @@ class FipeController extends BaseController {
         _getFipeTableUsecase = getFipeTableUsecase,
         _getYearByModelUsecase = getYearByModelUsecase;
 
+  final ScreenshotController _screenshotController = ScreenshotController();
+  ScreenshotController get screenshotController => _screenshotController;
+
   final List<VehicleType> categories = [
     const VehicleType(name: 'Carros', vehicleType: 'cars'),
     const VehicleType(name: 'Motos', vehicleType: 'motorcycles'),
@@ -53,7 +60,7 @@ class FipeController extends BaseController {
   List<BrandEntity> brandList = List.empty(growable: true);
   BrandEntity brandEntity = BrandEntity.empty();
 
-  List<VehicleModelsEntity> vehicleModel = List.empty(growable: true);
+  List<VehicleModelsEntity> vehicleModelList = List.empty(growable: true);
   VehicleModelsEntity vehicleModelsEntity = VehicleModelsEntity.empty();
 
   List<YearByModelEntity> yearIdList = List.empty(growable: true);
@@ -68,12 +75,15 @@ class FipeController extends BaseController {
 
   reset() {
     brandEntity = BrandEntity.empty();
+    vehicleModelsEntity = VehicleModelsEntity.empty();
     yearIdEntity = YearByModelEntity.empty();
     fipeTable = FipeTableEntity.empty();
+    referenceTable = ReferenceTableEntity.empty();
     notifyListeners();
   }
 
   void selectCategory(VehicleType value) {
+    reset();
     selectedCategory = value;
     notifyListeners();
   }
@@ -116,7 +126,8 @@ class FipeController extends BaseController {
     try {
       setStatus(Status.loading);
 
-      vehicleModel = await _getVehicleModelsUsecase.call(GetVehicleModelsParams(
+      vehicleModelList =
+          await _getVehicleModelsUsecase.call(GetVehicleModelsParams(
         tableCode: referenceTable.code,
         vehicleCode: selectedCategory.vehicleType,
         brandCode: brandEntity.code,
@@ -180,5 +191,13 @@ class FipeController extends BaseController {
         .format(_consultDate);
 
     return parsed;
+  }
+
+  Future<ShareResult> captureAndShare() async {
+    final Uint8List imageBytes =
+        await _screenshotController.capture() ?? Uint8List(0);
+
+    final XFile imageFile = XFile.fromData(imageBytes, mimeType: 'image/png');
+    return await Share.shareXFiles([imageFile], text: "Confira isso!");
   }
 }

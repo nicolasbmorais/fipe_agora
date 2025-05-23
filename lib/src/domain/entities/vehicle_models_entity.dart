@@ -11,8 +11,10 @@ class VehicleModelsEntity extends Equatable {
 
   factory VehicleModelsEntity.empty() => const VehicleModelsEntity(
         name: '',
-        code: '0',
+        code: '',
       );
+
+  bool get isEmpty => name.isEmpty && code.isEmpty;
 
   @override
   List<Object?> get props => [name, code];

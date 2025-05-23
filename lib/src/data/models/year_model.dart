@@ -6,8 +6,17 @@ class YearByModel extends YearByModelEntity {
     required super.name,
   });
 
-  factory YearByModel.fromJson(Map<String, dynamic> json) => YearByModel(
-        code: json["code"] ?? '',
-        name: json["name"] ?? '',
-      );
+  factory YearByModel.fromJson(Map<String, dynamic> json) {
+    String yearRaw = json["name"].toString().trim();
+    String codeRaw = json["code"].toString().trim();
+
+    if (yearRaw.startsWith('32000')) {
+      yearRaw = yearRaw.replaceFirst('32000', '0km').trim();
+    }
+
+    return YearByModel(
+      code: codeRaw,
+      name: yearRaw,
+    );
+  }
 }
