@@ -198,6 +198,7 @@ class FipeController extends BaseController {
         await _screenshotController.capture() ?? Uint8List(0);
 
     final XFile imageFile = XFile.fromData(imageBytes, mimeType: 'image/png');
-    return await Share.shareXFiles([imageFile], text: "Confira isso!");
+    return await SharePlus.instance
+        .share(ShareParams(files: [imageFile], text: "Confira isso!"));
   }
 }
