@@ -2,7 +2,7 @@ name: fipe_agora
 description: "Fipe Agora, um aplicativo que facilita a consulta de valores de veículos"
 publish_to: 'none' 
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ^3.6.2

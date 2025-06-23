@@ -83,8 +83,8 @@ class FipeController extends BaseController {
   }
 
   void selectCategory(VehicleType value) {
-    reset();
     selectedCategory = value;
+    reset();
     notifyListeners();
   }
 
