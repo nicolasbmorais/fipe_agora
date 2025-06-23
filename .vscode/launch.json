@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "fipe_agora (debug mode)",
+            "name": "Fipe Agora (debug mode)",
             "request": "launch",
             "type": "dart",
             "args": [
@@ -11,7 +11,7 @@
             ]
         },
         {
-            "name": "fipe_agora (profile mode)",
+            "name": "Fipe Agora (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
@@ -21,7 +21,7 @@
             ]
         },
         {
-            "name": "fipe_agora (release mode)",
+            "name": "Fipe Agora (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
