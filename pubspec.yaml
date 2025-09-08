@@ -2,7 +2,7 @@ name: fipe_agora
 description: "Fipe Agora, um aplicativo que facilita a consulta de valores de veículos"
 publish_to: 'none' 
 
-version: 1.0.0+2
+version: 1.0.1+3
 
 environment:
   sdk: ^3.6.2
@@ -13,22 +13,22 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   provider: ^6.1.5
-  get_it: ^8.0.3
-  go_router: ^15.1.2
+  get_it: ^8.2.0
+  go_router: ^16.2.1 
   equatable: ^2.0.7
-  mockito: ^5.4.6
-  dio: ^5.8.0+1
+  mockito: ^5.5.1
+  dio: ^5.9.0
   skeletonizer: ^2.0.1
-  google_fonts: ^6.2.1
+  google_fonts: ^6.3.1
   intl: ^0.20.2
-  share_plus: ^11.0.0
+  share_plus: ^11.1.0
   screenshot: ^3.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   build_runner: ^2.4.15
 
 flutter:

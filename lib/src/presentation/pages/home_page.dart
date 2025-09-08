@@ -33,64 +33,68 @@ class _HomePageState extends State<HomePage> {
         title: Text('TABELA FIPE', style: CustomTypography.bold),
         leading: Image.asset('assets/images/fipe_icon.png'),
       ),
-      body: SingleChildScrollView(
-        reverse: true,
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Tipo de Veículo', style: CustomTypography.bold),
-                    const VehicleButtons(),
-                    const SizedBox(height: 24.0),
-                    const DropDownItens(),
-                    const SizedBox(height: 24.0),
-                  ],
-                ),
-              ),
-              Consumer<FipeController>(
-                builder: (context, controller, _) {
-                  return Column(
+      body: SafeArea(
+        left: false,
+        right: false,
+        child: SingleChildScrollView(
+          reverse: true,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (!controller.fipeTable.isEmpty) ...[
-                        Screenshot(
-                          controller: controller.screenshotController,
-                          child: Container(
-                            color: Colors.white,
-                            child: ResultInfoWidget(
-                              controller: controller,
+                      Text('Tipo de Veículo', style: CustomTypography.bold),
+                      const VehicleButtons(),
+                      const SizedBox(height: 24.0),
+                      const DropDownItens(),
+                      const SizedBox(height: 24.0),
+                    ],
+                  ),
+                ),
+                Consumer<FipeController>(
+                  builder: (context, controller, _) {
+                    return Column(
+                      children: [
+                        if (!controller.fipeTable.isEmpty) ...[
+                          Screenshot(
+                            controller: controller.screenshotController,
+                            child: Container(
+                              color: Colors.white,
+                              child: ResultInfoWidget(
+                                controller: controller,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Column(
-                            spacing: 8,
-                            children: [
-                              FipeButton(
-                                text: 'Compartilhar',
-                                onPressed: () async =>
-                                    await controller.captureAndShare(),
-                              ),
-                              FipeButton(
-                                text: 'Limpar dados',
-                                onPressed: () => controller.reset(),
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Column(
+                              spacing: 8,
+                              children: [
+                                FipeButton(
+                                  text: 'Compartilhar',
+                                  onPressed: () async =>
+                                      await controller.captureAndShare(),
+                                ),
+                                FipeButton(
+                                  text: 'Limpar dados',
+                                  onPressed: () => controller.reset(),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
+                        ],
                       ],
-                    ],
-                  );
-                },
-              ),
-            ],
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
